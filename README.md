@@ -1,1 +1,1 @@
-# binary-trading
+# binary-new-trading
