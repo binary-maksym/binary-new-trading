@@ -3,7 +3,7 @@ import {
 }
 from 'chai';
 import {
-    List, Map
+    List, Map, fromJS
 }
 from 'immutable';
 import SymbolsParser from '../../../lib/parser/symbols';
@@ -11,6 +11,37 @@ import response from '../../receive/active_symbols'
 
 describe('SymbolsParser Class tests', () => {
     let parsed = new SymbolsParser(response.active_symbols);
+
+    it('Sort symbols', () => {
+        let list = [{
+            submarket: 'smart_fx',
+            display_name: "USD Index"
+        }, {
+            submarket: 'major_pairs',
+            display_name: "AUD/JPY"
+        }, {
+            submarket: 'smart_fx',
+            display_name: "AUD Index"
+        }, {
+            submarket: 'smart_fx',
+            display_name: "GBP Index"
+        }];
+        let new_list = parsed._sortSymbolsList(fromJS(list));
+        expect(new_list).to.equal(fromJS([{
+            submarket: 'major_pairs',
+            display_name: "AUD/JPY"
+        }, {
+            submarket: 'smart_fx',
+            display_name: "AUD Index"
+        }, {
+            submarket: 'smart_fx',
+            display_name: "GBP Index"
+        }, {
+            submarket: 'smart_fx',
+            display_name: "USD Index"
+        }]));
+    });
+
     let markets = parsed.getMarkets();
     it('get Markets list (ordered)', () => {
         expect(markets).to.equal(List([
@@ -59,7 +90,7 @@ describe('SymbolsParser Class tests', () => {
         ]));
     })
 
-    let opened_markets = parsed.getOpenedMarkets();
+    let opened_markets = parsed.getMarkets(1);
     it('get Opened markets list (ordered)', () => {
         expect(opened_markets).to.equal(List([
             Map({

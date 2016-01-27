@@ -266,7 +266,7 @@
         },
         {
             "file": "lib/parser/symbols.js",
-            "line": 76,
+            "line": 77,
             "description": "Adds symbol to market/submarket tree.",
             "itemtype": "method",
             "name": "_addSymbolToTree",
@@ -290,7 +290,7 @@
         },
         {
             "file": "lib/parser/symbols.js",
-            "line": 116,
+            "line": 117,
             "description": "Returns ordered markets. Markets order is taken from /config.json",
             "itemtype": "method",
             "name": "getMarkets",
@@ -309,7 +309,7 @@
         },
         {
             "file": "lib/parser/symbols.js",
-            "line": 159,
+            "line": 160,
             "description": "Returns symbols for market.",
             "itemtype": "method",
             "name": "getSymbols",
