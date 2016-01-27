@@ -1,5 +1,10 @@
 {
-    "project": {},
+    "project": {
+        "name": "Websocket trading page UI",
+        "description": "Description of trading page UI classes",
+        "version": "0.1",
+        "logo": "../resources/img/logo.png"
+    },
     "files": {
         "lib/parser/contracts.js": {
             "name": "lib/parser/contracts.js",

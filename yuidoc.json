@@ -1,0 +1,9 @@
+{
+    "name": "Websocket trading page UI",
+    "description": "Description of trading page UI classes",
+    "version": "0.1",
+    "logo":  "../resources/img/logo.png",
+    "options": {
+        "outdir": "./doc"
+    }
+}
