@@ -1,0 +1,40 @@
+{
+    "markets_order": {
+        "forex": 1,
+        "major_pairs": 2,
+        "minor_pairs": 3,
+        "smart_fx": 4,
+        "indices": 5,
+        "asia_oceania": 6,
+        "europe_africa": 7,
+        "middle_east": 8,
+        "americas": 9,
+        "stocks": 10,
+        "france": 11,
+        "belgium": 12,
+        "amsterdam": 13,
+        "commodities": 14,
+        "metals": 15,
+        "energy": 16,
+        "random": 17,
+        "random_index": 18,
+        "random_daily": 19,
+        "random_nightly": 20
+    },
+    "categories_order": {
+        "callput": 1,
+        "touchnotouch": 2,
+        "endsinout": 3,
+        "staysinout": 4,
+        "asian": 5,
+        "digits": 6,
+        "spreads": 7
+    },
+    "durations_order": {
+        "t": 1,
+        "s": 2,
+        "m": 3,
+        "h": 4,
+        "d": 5
+    }
+}

@@ -1,0 +1,109 @@
+{
+    "echo_req": {
+        "active_symbols": "brief"
+    },
+    "debug": [
+        0.044905,
+        ""
+    ],
+    "msg_type": "active_symbols",
+    "active_symbols": [{
+        "market": "random",
+        "symbol": "R_100",
+        "market_display_name": "Randoms",
+        "symbol_type": "stockindex",
+        "exchange_is_open": 1,
+        "submarket": "random_index",
+        "display_name": "Random 100 Index",
+        "submarket_display_name": "Indices",
+        "is_trading_suspended": 0,
+        "pip": "0.01"
+    }, {
+        "market": "random",
+        "symbol": "R_25",
+        "market_display_name": "Randoms",
+        "symbol_type": "stockindex",
+        "exchange_is_open": 1,
+        "submarket": "random_index",
+        "display_name": "Random 25 Index",
+        "submarket_display_name": "Indices",
+        "is_trading_suspended": 0,
+        "pip": "0.001"
+    }, {
+        "market": "random",
+        "symbol": "R_50",
+        "market_display_name": "Randoms",
+        "symbol_type": "stockindex",
+        "exchange_is_open": 1,
+        "submarket": "random_index",
+        "display_name": "Random 50 Index",
+        "submarket_display_name": "Indices",
+        "is_trading_suspended": 0,
+        "pip": "0.0001"
+    }, {
+        "market": "forex",
+        "symbol": "frxAUDJPY",
+        "market_display_name": "Forex",
+        "symbol_type": "forex",
+        "exchange_is_open": 0,
+        "submarket": "major_pairs",
+        "display_name": "AUD/JPY",
+        "submarket_display_name": "Major Pairs",
+        "is_trading_suspended": 0,
+        "pip": "0.001"
+    }, {
+        "market": "forex",
+        "symbol": "frxAUDUSD",
+        "market_display_name": "Forex",
+        "symbol_type": "forex",
+        "exchange_is_open": 0,
+        "submarket": "major_pairs",
+        "display_name": "AUD/USD",
+        "submarket_display_name": "Major Pairs",
+        "is_trading_suspended": 0,
+        "pip": "0.00001"
+    }, {
+        "market": "forex",
+        "symbol": "WLDGBP",
+        "market_display_name": "Forex",
+        "symbol_type": "smart_fx",
+        "exchange_is_open": 0,
+        "submarket": "smart_fx",
+        "display_name": "GBP Index",
+        "submarket_display_name": "Smart FX",
+        "is_trading_suspended": 0,
+        "pip": "0.001"
+    }, {
+        "market": "random",
+        "symbol": "RDYANG",
+        "market_display_name": "Randoms",
+        "symbol_type": "stockindex",
+        "exchange_is_open": 1,
+        "submarket": "random_nightly",
+        "display_name": "Random Yang",
+        "submarket_display_name": "Nocturnes",
+        "is_trading_suspended": 0,
+        "pip": "0.0001"
+    }, {
+        "market": "random",
+        "symbol": "RDBULL",
+        "market_display_name": "Randoms",
+        "symbol_type": "stockindex",
+        "exchange_is_open": 1,
+        "submarket": "random_daily",
+        "display_name": "Random Bull",
+        "submarket_display_name": "Quotidians",
+        "is_trading_suspended": 0,
+        "pip": "0.0001"
+    }, {
+        "symbol": "Wrong element without market",
+        "market_display_name": "Randoms",
+        "symbol_type": "stockindex",
+        "exchange_is_open": 1,
+        "submarket": "random_index",
+        "display_name": "Random 100 Index",
+        "submarket_display_name": "Indices",
+        "is_trading_suspended": 0,
+        "pip": "0.01"
+    }]
+}

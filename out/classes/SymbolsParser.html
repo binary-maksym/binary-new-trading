@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>SymbolsParser</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/ContractsParser.html">ContractsParser</a></li>
+                                <li><a href="../classes/SymbolsParser.html">SymbolsParser</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1>SymbolsParser Class</h1>
+<div class="box meta">
+
+
+        <div class="foundat">
+            Defined in: <a href="../files/lib_parser_symbols.js.html#l1"><code>lib&#x2F;parser&#x2F;symbols.js:1</code></a>
+        </div>
+
+
+</div>
+
+
+<div class="box intro">
+    <p>Class for parsing Websocket response for &quot;active_symbols&quot; request</p>
+
+</div>
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+<div id="method_SymbolsParser" class="method item">
+    <h3 class="name"><code>SymbolsParser</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_parser_symbols.js.html#l1"><code>lib&#x2F;parser&#x2F;symbols.js:1</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+
+</div>
+    </div>
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                            <li class="index-item method">
+                                <a href="#method__addSymbolToTree">_addSymbolToTree</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method__parse">_parse</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method__sortSymbolsList">_sortSymbolsList</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_constructor">constructor</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_getMarkets">getMarkets</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_getOpenedMarkets">getOpenedMarkets</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_getSymbols">getSymbols</a>
+
+                            </li>
+                    </ul>
+                </div>
+
+
+
+        </div>
+
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+<div id="method__addSymbolToTree" class="method item">
+    <h3 class="name"><code>_addSymbolToTree</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>markets</code>
+                </li>
+                <li class="arg">
+                        <code>symbol</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Map()</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_parser_symbols.js.html#l77"><code>lib&#x2F;parser&#x2F;symbols.js:77</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Adds symbol to market/submarket tree.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">markets</code>
+                        <span class="type">Map()</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">symbol</code>
+                        <span class="type">Map()</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Map()</span>:
+                    <p>matkets with symbol added</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method__parse" class="method item">
+    <h3 class="name"><code>_parse</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>symbols</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Map()</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_parser_symbols.js.html#l38"><code>lib&#x2F;parser&#x2F;symbols.js:38</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">symbols</code>
+                        <span class="type">Array</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Map()</span>:
+                    <p>tree</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method__sortSymbolsList" class="method item">
+    <h3 class="name"><code>_sortSymbolsList</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>symbols</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">List()</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_parser_symbols.js.html#l53"><code>lib&#x2F;parser&#x2F;symbols.js:53</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">symbols</code>
+                        <span class="type">List()</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">List()</span>:
+                    <p>symbols</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_constructor" class="method item">
+    <h3 class="name"><code>constructor</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>symbols</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_parser_symbols.js.html#l16"><code>lib&#x2F;parser&#x2F;symbols.js:16</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">symbols</code>
+                        <span class="type">Array</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_getMarkets" class="method item">
+    <h3 class="name"><code>getMarkets</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">List()</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_parser_symbols.js.html#l117"><code>lib&#x2F;parser&#x2F;symbols.js:117</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns ordered markets. Markets order is taken from /config.json</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">List()</span>:
+                    <p>[
+Map({
+market: 'random',
+name: 'Randoms',
+state: 1,
+is_sub: 0
+}),
+...,
+Map({
+market: 'random_index',
+name: 'Indices',
+state: 1,
+is_sub: 1
+})
+]</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_getOpenedMarkets" class="method item">
+    <h3 class="name"><code>getOpenedMarkets</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">List()</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_parser_symbols.js.html#l159"><code>lib&#x2F;parser&#x2F;symbols.js:159</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns only opened markets. Markets order is taken from /config.json</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">List()</span>:
+                    <p>[
+Map({
+market: 'random',
+name: 'Randoms',
+state: 1,
+is_sub: 0
+}),
+...,
+Map({
+market: 'random_index',
+name: 'Indices',
+state: 1,
+is_sub: 1
+})
+]</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_getSymbols" class="method item">
+    <h3 class="name"><code>getSymbols</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>market_name</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">List()</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_parser_symbols.js.html#l184"><code>lib&#x2F;parser&#x2F;symbols.js:184</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns symbols for market.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">market_name</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">List()</span>:
+                    <p>[
+Map({
+&quot;symbol&quot;: &quot;R_100&quot;,
+&quot;name&quot;: &quot;Random 100 Index&quot;,
+&quot;state&quot;: 1
+}),
+....,
+Map({
+&quot;symbol&quot;: &quot;R_25&quot;,
+&quot;name&quot;: &quot;Random 25 Index&quot;,
+&quot;state&quot;: 1
+})
+]</p>
+
+            </div>
+        </div>
+
+
+</div>
+            </div>
+
+
+
+    </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

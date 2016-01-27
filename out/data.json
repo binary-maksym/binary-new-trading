@@ -1,0 +1,325 @@
+{
+    "project": {},
+    "files": {
+        "lib/parser/contracts.js": {
+            "name": "lib/parser/contracts.js",
+            "modules": {},
+            "classes": {
+                "ContractsParser": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/parser/symbols.js": {
+            "name": "lib/parser/symbols.js",
+            "modules": {},
+            "classes": {
+                "SymbolsParser": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "ContractsParser": {
+            "name": "ContractsParser",
+            "shortname": "ContractsParser",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "lib/parser/contracts.js",
+            "line": 1,
+            "description": "Class for parsing Websocket response for \"contracts_for\" request",
+            "is_constructor": 1
+        },
+        "SymbolsParser": {
+            "name": "SymbolsParser",
+            "shortname": "SymbolsParser",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "lib/parser/symbols.js",
+            "line": 1,
+            "description": "Class for parsing Websocket response for \"active_symbols\" request",
+            "is_constructor": 1
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "lib/parser/contracts.js",
+            "line": 16,
+            "itemtype": "method",
+            "name": "constructor",
+            "params": [
+                {
+                    "name": "contracts",
+                    "description": "",
+                    "type": "Array"
+                }
+            ],
+            "class": "ContractsParser"
+        },
+        {
+            "file": "lib/parser/contracts.js",
+            "line": 38,
+            "itemtype": "method",
+            "name": "_parse",
+            "params": [
+                {
+                    "name": "contracts",
+                    "description": "",
+                    "type": "List()"
+                }
+            ],
+            "return": {
+                "description": "tree",
+                "type": "Map()"
+            },
+            "class": "ContractsParser"
+        },
+        {
+            "file": "lib/parser/contracts.js",
+            "line": 59,
+            "itemtype": "method",
+            "name": "_addDataToTree",
+            "params": [
+                {
+                    "name": "tree",
+                    "description": "",
+                    "type": "Map()"
+                },
+                {
+                    "name": "contract",
+                    "description": "",
+                    "type": "Map()"
+                }
+            ],
+            "return": {
+                "description": "tree",
+                "type": "Map()"
+            },
+            "class": "ContractsParser"
+        },
+        {
+            "file": "lib/parser/contracts.js",
+            "line": 101,
+            "itemtype": "method",
+            "name": "_completeDurations",
+            "params": [
+                {
+                    "name": "durations",
+                    "description": "",
+                    "type": "Map()"
+                }
+            ],
+            "return": {
+                "description": "durations",
+                "type": "Map()"
+            },
+            "class": "ContractsParser"
+        },
+        {
+            "file": "lib/parser/contracts.js",
+            "line": 131,
+            "description": "Returns categories List. List order is taken from /config.json",
+            "itemtype": "method",
+            "name": "getCategories",
+            "return": {
+                "description": "[\n           Map {\n               \"category\": \"callput\",\n               \"name\": \"Up/Down\"\n           }, ... ,\n           Map {\n               \"category\": \"spreads\",\n               \"name\": \"Spreads\"\n           }\n       ]",
+                "type": "List()"
+            },
+            "class": "ContractsParser"
+        },
+        {
+            "file": "lib/parser/contracts.js",
+            "line": 157,
+            "description": "Returns durations List. List order is taken from /config.json",
+            "itemtype": "method",
+            "name": "getDurations",
+            "params": [
+                {
+                    "name": "category",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "start_type,",
+                    "description": "default \"spot\"",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "[\n          Map {\n              \"min_duration\": \"5t\",\n              \"max_duration\": \"10t\",\n              \"value\": \"t\"\n          }, ... ,\n          Map {\n              \"min_duration\": \"1d\",\n              \"max_duration\": \"365d\",\n              \"barrier\": \"+1462.51\",\n              \"value\": \"d\"\n          }\n      ]",
+                "type": "List()"
+            },
+            "class": "ContractsParser"
+        },
+        {
+            "file": "lib/parser/contracts.js",
+            "line": 183,
+            "description": "Returns expiryType List.",
+            "itemtype": "method",
+            "name": "getExpiryTypes",
+            "params": [
+                {
+                    "name": "category",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "start_type,",
+                    "description": "default \"spot\"",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "[ \"duration\", \"end_date\"]",
+                "type": "List()"
+            },
+            "class": "ContractsParser"
+        },
+        {
+            "file": "lib/parser/contracts.js",
+            "line": 201,
+            "description": "Returns getStartTypes Map hash.",
+            "itemtype": "method",
+            "name": "getStartTypes",
+            "params": [
+                {
+                    "name": "category",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "{ \"spot\": 1, \"forward\": 1 }",
+                "type": "Map()"
+            },
+            "class": "ContractsParser"
+        },
+        {
+            "file": "lib/parser/symbols.js",
+            "line": 16,
+            "itemtype": "method",
+            "name": "constructor",
+            "params": [
+                {
+                    "name": "symbols",
+                    "description": "",
+                    "type": "Array"
+                }
+            ],
+            "class": "SymbolsParser"
+        },
+        {
+            "file": "lib/parser/symbols.js",
+            "line": 38,
+            "itemtype": "method",
+            "name": "_parse",
+            "params": [
+                {
+                    "name": "symbols",
+                    "description": "",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "tree",
+                "type": "Map()"
+            },
+            "class": "SymbolsParser"
+        },
+        {
+            "file": "lib/parser/symbols.js",
+            "line": 53,
+            "itemtype": "method",
+            "name": "_sortSymbolsList",
+            "params": [
+                {
+                    "name": "symbols",
+                    "description": "",
+                    "type": "List()"
+                }
+            ],
+            "return": {
+                "description": "symbols",
+                "type": "List()"
+            },
+            "class": "SymbolsParser"
+        },
+        {
+            "file": "lib/parser/symbols.js",
+            "line": 77,
+            "description": "Adds symbol to market/submarket tree.",
+            "itemtype": "method",
+            "name": "_addSymbolToTree",
+            "params": [
+                {
+                    "name": "markets",
+                    "description": "",
+                    "type": "Map()"
+                },
+                {
+                    "name": "symbol",
+                    "description": "",
+                    "type": "Map()"
+                }
+            ],
+            "return": {
+                "description": "matkets with symbol added",
+                "type": "Map()"
+            },
+            "class": "SymbolsParser"
+        },
+        {
+            "file": "lib/parser/symbols.js",
+            "line": 117,
+            "description": "Returns ordered markets. Markets order is taken from /config.json",
+            "itemtype": "method",
+            "name": "getMarkets",
+            "return": {
+                "description": "[\n           Map({\n               market: 'random',\n               name: 'Randoms',\n               state: 1,\n               is_sub: 0\n           }),\n           ...,\n           Map({\n               market: 'random_index',\n               name: 'Indices',\n               state: 1,\n               is_sub: 1\n           })\n       ]",
+                "type": "List()"
+            },
+            "class": "SymbolsParser"
+        },
+        {
+            "file": "lib/parser/symbols.js",
+            "line": 159,
+            "description": "Returns only opened markets. Markets order is taken from /config.json",
+            "itemtype": "method",
+            "name": "getOpenedMarkets",
+            "return": {
+                "description": "[\n           Map({\n               market: 'random',\n               name: 'Randoms',\n               state: 1,\n               is_sub: 0\n           }),\n           ...,\n           Map({\n               market: 'random_index',\n               name: 'Indices',\n               state: 1,\n               is_sub: 1\n           })\n       ]",
+                "type": "List()"
+            },
+            "class": "SymbolsParser"
+        },
+        {
+            "file": "lib/parser/symbols.js",
+            "line": 184,
+            "description": "Returns symbols for market.",
+            "itemtype": "method",
+            "name": "getSymbols",
+            "params": [
+                {
+                    "name": "market_name",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "[\n            Map({\n                \"symbol\": \"R_100\",\n                \"name\": \"Random 100 Index\",\n                \"state\": 1\n            }),\n            ....,\n            Map({\n                \"symbol\": \"R_25\",\n                \"name\": \"Random 25 Index\",\n                \"state\": 1\n            })\n       ]",
+                "type": "List()"
+            },
+            "class": "SymbolsParser"
+        }
+    ],
+    "warnings": []
+}
