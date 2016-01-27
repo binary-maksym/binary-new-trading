@@ -10,8 +10,8 @@ import SymbolsParser from '../../../lib/parser/symbols';
 import response from '../../receive/active_symbols'
 
 describe('SymbolsParser Class tests', () => {
-    let symbols = new SymbolsParser(response.active_symbols);
-    let markets = symbols.getMarkets();
+    let parsed = new SymbolsParser(response.active_symbols);
+    let markets = parsed.getMarkets();
     it('get Markets list (ordered)', () => {
         expect(markets).to.equal(List([
             Map({
@@ -59,7 +59,7 @@ describe('SymbolsParser Class tests', () => {
         ]));
     })
 
-    let opened_markets = symbols.getOpenedMarkets();
+    let opened_markets = parsed.getOpenedMarkets();
     it('get Opened markets list (ordered)', () => {
         expect(opened_markets).to.equal(List([
             Map({
@@ -89,7 +89,7 @@ describe('SymbolsParser Class tests', () => {
         ]));
     })
 
-    let random_symbols = symbols.getSymbols('random');
+    let random_symbols = parsed.getSymbols('random');
     it('get Market\'s  symbols list (ordered)', () => {
         expect(random_symbols).to.equal(List([
             Map({
