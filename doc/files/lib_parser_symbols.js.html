@@ -86,6 +86,9 @@
  *
  * @class SymbolsParser
  * @constructor
+ * @example
+ *      let parsed_data = new SymbolsParser(response.active_symbols);
+ *      let opened_markets = parsed_data.getMarkets(1);
  */
 
 import config from &#x27;../../config&#x27;;
@@ -197,6 +200,7 @@ export default class SymbolsParser {
      * Returns ordered markets. Markets order is taken from /config.json
      *
      * @method getMarkets
+     * @param {0|1} only_opened
      * @return {List()}
         [
             Map({
@@ -233,31 +237,6 @@ export default class SymbolsParser {
         }
 
         return markets;
-    }
-
-    /**
-     * Returns only opened markets. Markets order is taken from /config.json
-     *
-     * @method getOpenedMarkets
-     * @return {List()}
-        [
-            Map({
-                market: &#x27;random&#x27;,
-                name: &#x27;Randoms&#x27;,
-                state: 1,
-                is_sub: 0
-            }),
-            ...,
-            Map({
-                market: &#x27;random_index&#x27;,
-                name: &#x27;Indices&#x27;,
-                state: 1,
-                is_sub: 1
-            })
-        ]
-     */
-    getOpenedMarkets() {
-        return this.getMarkets(1);
     }
 
     /**

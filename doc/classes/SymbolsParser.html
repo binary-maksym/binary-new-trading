@@ -125,6 +125,15 @@
 
 
 
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code> let parsed_data = new SymbolsParser(response.active_symbols);
+ let opened_markets = parsed_data.getMarkets(1);</code></pre>
+
+            </div>
+        </div>
 </div>
     </div>
 
@@ -161,10 +170,6 @@
                             </li>
                             <li class="index-item method">
                                 <a href="#method_getMarkets">getMarkets</a>
-
-                            </li>
-                            <li class="index-item method">
-                                <a href="#method_getOpenedMarkets">getOpenedMarkets</a>
 
                             </li>
                             <li class="index-item method">
@@ -208,7 +213,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_parser_symbols.js.html#l73"><code>lib&#x2F;parser&#x2F;symbols.js:73</code></a>
+        <a href="../files/lib_parser_symbols.js.html#l76"><code>lib&#x2F;parser&#x2F;symbols.js:76</code></a>
         </p>
 
 
@@ -283,7 +288,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_parser_symbols.js.html#l34"><code>lib&#x2F;parser&#x2F;symbols.js:34</code></a>
+        <a href="../files/lib_parser_symbols.js.html#l37"><code>lib&#x2F;parser&#x2F;symbols.js:37</code></a>
         </p>
 
 
@@ -347,7 +352,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_parser_symbols.js.html#l49"><code>lib&#x2F;parser&#x2F;symbols.js:49</code></a>
+        <a href="../files/lib_parser_symbols.js.html#l52"><code>lib&#x2F;parser&#x2F;symbols.js:52</code></a>
         </p>
 
 
@@ -408,7 +413,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_parser_symbols.js.html#l16"><code>lib&#x2F;parser&#x2F;symbols.js:16</code></a>
+        <a href="../files/lib_parser_symbols.js.html#l19"><code>lib&#x2F;parser&#x2F;symbols.js:19</code></a>
         </p>
 
 
@@ -442,7 +447,13 @@
 <div id="method_getMarkets" class="method item">
     <h3 class="name"><code>getMarkets</code></h3>
 
-        <span class="paren">()</span>
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>only_opened</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
 
         <span class="returns-inline">
             <span class="type">List()</span>
@@ -457,7 +468,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_parser_symbols.js.html#l113"><code>lib&#x2F;parser&#x2F;symbols.js:113</code></a>
+        <a href="../files/lib_parser_symbols.js.html#l116"><code>lib&#x2F;parser&#x2F;symbols.js:116</code></a>
         </p>
 
 
@@ -469,63 +480,22 @@
 
     </div>
 
+        <div class="params">
+            <h4>Parameters:</h4>
 
-        <div class="returns">
-            <h4>Returns:</h4>
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">only_opened</code>
+                        <span class="type">0 | 1</span>
 
-            <div class="returns-description">
-                        <span class="type">List()</span>:
-                    <p>[
-Map({
-market: 'random',
-name: 'Randoms',
-state: 1,
-is_sub: 0
-}),
-...,
-Map({
-market: 'random_index',
-name: 'Indices',
-state: 1,
-is_sub: 1
-})
-]</p>
 
-            </div>
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
         </div>
-
-
-</div>
-<div id="method_getOpenedMarkets" class="method item">
-    <h3 class="name"><code>getOpenedMarkets</code></h3>
-
-        <span class="paren">()</span>
-
-        <span class="returns-inline">
-            <span class="type">List()</span>
-        </span>
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_parser_symbols.js.html#l155"><code>lib&#x2F;parser&#x2F;symbols.js:155</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        <p>Returns only opened markets. Markets order is taken from /config.json</p>
-
-    </div>
-
 
         <div class="returns">
             <h4>Returns:</h4>
@@ -577,7 +547,7 @@ is_sub: 1
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_parser_symbols.js.html#l180"><code>lib&#x2F;parser&#x2F;symbols.js:180</code></a>
+        <a href="../files/lib_parser_symbols.js.html#l159"><code>lib&#x2F;parser&#x2F;symbols.js:159</code></a>
         </p>
 
 

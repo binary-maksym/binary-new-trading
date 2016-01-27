@@ -38,7 +38,10 @@
             "file": "lib/parser/contracts.js",
             "line": 1,
             "description": "Class for parsing Websocket response for \"contracts_for\" request",
-            "is_constructor": 1
+            "is_constructor": 1,
+            "example": [
+                "\n     let parsed_data = new ContractsParser(response.contracts_for.available);\n     let categories = parsed_data.getCategories();\n"
+            ]
         },
         "SymbolsParser": {
             "name": "SymbolsParser",
@@ -51,14 +54,17 @@
             "file": "lib/parser/symbols.js",
             "line": 1,
             "description": "Class for parsing Websocket response for \"active_symbols\" request",
-            "is_constructor": 1
+            "is_constructor": 1,
+            "example": [
+                "\n     let parsed_data = new SymbolsParser(response.active_symbols);\n     let opened_markets = parsed_data.getMarkets(1);"
+            ]
         }
     },
     "elements": {},
     "classitems": [
         {
             "file": "lib/parser/contracts.js",
-            "line": 16,
+            "line": 20,
             "itemtype": "method",
             "name": "constructor",
             "params": [
@@ -72,7 +78,7 @@
         },
         {
             "file": "lib/parser/contracts.js",
-            "line": 34,
+            "line": 38,
             "itemtype": "method",
             "name": "_parse",
             "params": [
@@ -90,7 +96,7 @@
         },
         {
             "file": "lib/parser/contracts.js",
-            "line": 55,
+            "line": 59,
             "itemtype": "method",
             "name": "_addDataToTree",
             "params": [
@@ -113,7 +119,7 @@
         },
         {
             "file": "lib/parser/contracts.js",
-            "line": 97,
+            "line": 101,
             "itemtype": "method",
             "name": "_completeDurations",
             "params": [
@@ -131,7 +137,7 @@
         },
         {
             "file": "lib/parser/contracts.js",
-            "line": 127,
+            "line": 131,
             "description": "Returns categories List. List order is taken from /config.json",
             "itemtype": "method",
             "name": "getCategories",
@@ -143,7 +149,7 @@
         },
         {
             "file": "lib/parser/contracts.js",
-            "line": 153,
+            "line": 157,
             "description": "Returns durations List. List order is taken from /config.json",
             "itemtype": "method",
             "name": "getDurations",
@@ -167,7 +173,7 @@
         },
         {
             "file": "lib/parser/contracts.js",
-            "line": 179,
+            "line": 183,
             "description": "Returns expiryType List.",
             "itemtype": "method",
             "name": "getExpiryTypes",
@@ -191,7 +197,7 @@
         },
         {
             "file": "lib/parser/contracts.js",
-            "line": 197,
+            "line": 201,
             "description": "Returns getStartTypes Map hash.",
             "itemtype": "method",
             "name": "getStartTypes",
@@ -210,7 +216,7 @@
         },
         {
             "file": "lib/parser/symbols.js",
-            "line": 16,
+            "line": 19,
             "itemtype": "method",
             "name": "constructor",
             "params": [
@@ -224,7 +230,7 @@
         },
         {
             "file": "lib/parser/symbols.js",
-            "line": 34,
+            "line": 37,
             "itemtype": "method",
             "name": "_parse",
             "params": [
@@ -242,7 +248,7 @@
         },
         {
             "file": "lib/parser/symbols.js",
-            "line": 49,
+            "line": 52,
             "itemtype": "method",
             "name": "_sortSymbolsList",
             "params": [
@@ -260,7 +266,7 @@
         },
         {
             "file": "lib/parser/symbols.js",
-            "line": 73,
+            "line": 76,
             "description": "Adds symbol to market/submarket tree.",
             "itemtype": "method",
             "name": "_addSymbolToTree",
@@ -284,10 +290,17 @@
         },
         {
             "file": "lib/parser/symbols.js",
-            "line": 113,
+            "line": 116,
             "description": "Returns ordered markets. Markets order is taken from /config.json",
             "itemtype": "method",
             "name": "getMarkets",
+            "params": [
+                {
+                    "name": "only_opened",
+                    "description": "",
+                    "type": "0|1"
+                }
+            ],
             "return": {
                 "description": "[\n           Map({\n               market: 'random',\n               name: 'Randoms',\n               state: 1,\n               is_sub: 0\n           }),\n           ...,\n           Map({\n               market: 'random_index',\n               name: 'Indices',\n               state: 1,\n               is_sub: 1\n           })\n       ]",
                 "type": "List()"
@@ -296,19 +309,7 @@
         },
         {
             "file": "lib/parser/symbols.js",
-            "line": 155,
-            "description": "Returns only opened markets. Markets order is taken from /config.json",
-            "itemtype": "method",
-            "name": "getOpenedMarkets",
-            "return": {
-                "description": "[\n           Map({\n               market: 'random',\n               name: 'Randoms',\n               state: 1,\n               is_sub: 0\n           }),\n           ...,\n           Map({\n               market: 'random_index',\n               name: 'Indices',\n               state: 1,\n               is_sub: 1\n           })\n       ]",
-                "type": "List()"
-            },
-            "class": "SymbolsParser"
-        },
-        {
-            "file": "lib/parser/symbols.js",
-            "line": 180,
+            "line": 159,
             "description": "Returns symbols for market.",
             "itemtype": "method",
             "name": "getSymbols",
