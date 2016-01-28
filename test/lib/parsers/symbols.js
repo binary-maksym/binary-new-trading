@@ -6,7 +6,7 @@ import {
     List, Map, fromJS
 }
 from 'immutable';
-import SymbolsParser from '../../../lib/parser/symbols';
+import SymbolsParser from '../../../lib/parsers/symbols';
 import response from '../../receive/active_symbols'
 
 describe('SymbolsParser Class tests', () => {

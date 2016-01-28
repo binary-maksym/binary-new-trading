@@ -6,7 +6,7 @@ import {
     List, Map
 }
 from 'immutable';
-import ContractsParser from '../../../lib/parser/contracts';
+import ContractsParser from '../../../lib/parsers/contracts';
 import response from '../../receive/contracts_for_symbol'
 
 describe('ContractsParser Class tests', () => {
