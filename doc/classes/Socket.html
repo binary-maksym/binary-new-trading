@@ -130,7 +130,11 @@
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code prettyprint"><code>  let socket = new Socket();
+                <pre class="code prettyprint"><code>  const socket = new Socket({
+     url: 'wss://ws.binaryws.com/websockets/v3',
+     check_timeout: 30, // Send ping request every 30 seconds
+     response_timeout: 10 // Consider request be failed if no response for 10 seconds
+  });
 
   socket.request({
       &quot;active_symbols&quot;: &quot;brief&quot;
@@ -175,7 +179,7 @@
 
                             </li>
                             <li class="index-item method private">
-                                <a href="#method__connection">_connection</a>
+                                <a href="#method__getConnection">_getConnection</a>
 
                             </li>
                             <li class="index-item method private">
@@ -228,7 +232,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_utils_socket.js.html#l56"><code>lib&#x2F;utils&#x2F;socket.js:56</code></a>
+        <a href="../files/lib_utils_socket.js.html#l61"><code>lib&#x2F;utils&#x2F;socket.js:61</code></a>
         </p>
 
 
@@ -244,8 +248,8 @@
 
 
 </div>
-<div id="method__connection" class="method item private">
-    <h3 class="name"><code>_connection</code></h3>
+<div id="method__getConnection" class="method item private">
+    <h3 class="name"><code>_getConnection</code></h3>
 
         <span class="paren">()</span>
 
@@ -260,7 +264,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_utils_socket.js.html#l107"><code>lib&#x2F;utils&#x2F;socket.js:107</code></a>
+        <a href="../files/lib_utils_socket.js.html#l112"><code>lib&#x2F;utils&#x2F;socket.js:112</code></a>
         </p>
 
 
@@ -292,7 +296,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_utils_socket.js.html#l205"><code>lib&#x2F;utils&#x2F;socket.js:205</code></a>
+        <a href="../files/lib_utils_socket.js.html#l222"><code>lib&#x2F;utils&#x2F;socket.js:222</code></a>
         </p>
 
 
@@ -324,7 +328,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_utils_socket.js.html#l92"><code>lib&#x2F;utils&#x2F;socket.js:92</code></a>
+        <a href="../files/lib_utils_socket.js.html#l97"><code>lib&#x2F;utils&#x2F;socket.js:97</code></a>
         </p>
 
 
@@ -354,7 +358,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_utils_socket.js.html#l233"><code>lib&#x2F;utils&#x2F;socket.js:233</code></a>
+        <a href="../files/lib_utils_socket.js.html#l253"><code>lib&#x2F;utils&#x2F;socket.js:253</code></a>
         </p>
 
 
@@ -391,7 +395,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_utils_socket.js.html#l40"><code>lib&#x2F;utils&#x2F;socket.js:40</code></a>
+        <a href="../files/lib_utils_socket.js.html#l45"><code>lib&#x2F;utils&#x2F;socket.js:45</code></a>
         </p>
 
 
@@ -414,7 +418,7 @@
                     <div class="param-description">
                         <p>{
 check_timeout: {Number},
-recon_timeout: {Number},
+response_timeout: {Number},
 url: {String}
 }</p>
 
@@ -448,7 +452,7 @@ url: {String}
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_utils_socket.js.html#l116"><code>lib&#x2F;utils&#x2F;socket.js:116</code></a>
+        <a href="../files/lib_utils_socket.js.html#l121"><code>lib&#x2F;utils&#x2F;socket.js:121</code></a>
         </p>
 
 
@@ -515,7 +519,7 @@ url: {String}
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_utils_socket.js.html#l148"><code>lib&#x2F;utils&#x2F;socket.js:148</code></a>
+        <a href="../files/lib_utils_socket.js.html#l156"><code>lib&#x2F;utils&#x2F;socket.js:156</code></a>
         </p>
 
 

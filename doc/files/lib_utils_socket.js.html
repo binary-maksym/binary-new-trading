@@ -88,7 +88,12 @@
  * @class Socket
  * @constructor
  * @example
- *       let socket = new Socket();
+ *       
+ *       const socket = new Socket({
+ *          url: &#x27;wss://ws.binaryws.com/websockets/v3&#x27;,
+ *          check_timeout: 30, // Send ping request every 30 seconds
+ *          response_timeout: 10 // Consider request be failed if no response for 10 seconds
+ *       });
  *
  *       socket.request({
  *           &quot;active_symbols&quot;: &quot;brief&quot;
@@ -118,20 +123,20 @@ export default function Socket(input_params = {}) {
         _streams = {};
 
     let _params = {};
-    let _connection_;
+    let _connection;
     let _closed = 0;
 
     /**
      * @method constructor
      * @param {Object} params {
      *      check_timeout: {Number},
-     *      recon_timeout: {Number},
+     *      response_timeout: {Number},
      *      url: {String}
      * }      
      */
     function constructor(p = {}) {
-        _params.check_timeout = p.check_timeout ? p.check_timeout : 15;
-        _params.recon_timeout = p.recon_timeout ? p.recon_timeout : 5; // in seconds
+        _params.check_timeout = p.check_timeout ? p.check_timeout : 30;
+        _params.response_timeout = p.response_timeout ? p.response_timeout : 10; // in seconds
         _params.url = p.url ? p.url : &#x27;wss://ws.binaryws.com/websockets/v3&#x27;;
 
         _connect();
@@ -143,9 +148,9 @@ export default function Socket(input_params = {}) {
      * @private
      */
     function _connect() {
-        let ws = new WebSocket(_params.url);
+        const ws = new WebSocket(_params.url);
 
-        _connection_ = new Promise((resolve, reject) =&gt; {
+        _connection = new Promise((resolve, reject) =&gt; {
             ws.onopen = function() {
                 startTimer();
                 resolve(ws);
@@ -153,7 +158,7 @@ export default function Socket(input_params = {}) {
         });
 
         let recon_timer, check_timer, startTimer = () =&gt; check_timer = setTimeout(() =&gt; {
-            recon_timer = setTimeout(() =&gt; _connection_.then((ws) =&gt; ws.close()), _params.recon_timeout * 1000)
+            recon_timer = setTimeout(() =&gt; _connection.then((ws) =&gt; ws.close()), _params.response_timeout * 1000)
             request({
                 ping: 1
             }).then(() =&gt; {
@@ -181,7 +186,7 @@ export default function Socket(input_params = {}) {
 
         _connect();
 
-        let old_streams = Object.assign({}, _streams);
+        const old_streams = Object.assign({}, _streams);
         _streams = {};
         for (let k of Object.keys(old_streams)) {
             stream(old_streams[k].request).then(old_streams[k].resolve).catch(old_streams[k].reject);
@@ -190,11 +195,11 @@ export default function Socket(input_params = {}) {
 
     /**
      * Returns connection promise   
-     * @method _connection 
+     * @method _getConnection 
      * @private
      */
-    function _connection() {
-        return _connection_;
+    function _getConnection() {
+        return _connection;
     }
 
     /**
@@ -212,17 +217,20 @@ export default function Socket(input_params = {}) {
      */
     function request(req) {
         if (typeof req === &#x27;object&#x27;) {
-            let request = Object.assign({
+            const request = Object.assign({
                 passthrough: {
                     r_id: shortid.generate()
                 }
             }, req);
-            _connection().then((ws) =&gt; {
+            _getConnection().then((ws) =&gt; {
                 ws.send(JSON.stringify(request));
             });
             return new Promise((resolve, reject) =&gt; _requests[request.passthrough.r_id] = {
                 resolve,
-                reject
+                reject,
+                timeout: setTimeout(() =&gt; {
+                    Promise.reject(&#x27;Request timeout&#x27;)
+                }, _params.response_timeout * 1000)
             });
         } else {
             return Promise.reject(&#x27;Not JSON&#x27;);
@@ -245,27 +253,36 @@ export default function Socket(input_params = {}) {
     function stream(req) {
 
         if (typeof req === &#x27;object&#x27;) {
-            let r_id = shortid.generate();
-            let request = Object.assign({
+            const r_id = shortid.generate();
+            const request = Object.assign({
                 passthrough: {
                     r_id: r_id
                 }
             }, req);
-            _connection().then((ws) =&gt; {
+            _getConnection().then((ws) =&gt; {
                 ws.send(JSON.stringify(request));
             });
 
-            _streams[r_id] = {
-                request: req
+            const setTimer = (err_cb) =&gt; {
+                clearTimeout(_streams[r_id]);
+                _streams[r_id] = {
+                    request: req,
+                    timeout: setTimeout(() =&gt; {
+                        err_cb(&#x27;Request timeout&#x27;)
+                    }, _params.response_timeout * 1000)
+                }
             };
+
             return {
                 then: (cb = () =&gt; {}, err_cb = () =&gt; {}) =&gt; {
                     _streams[r_id].resolve = cb;
                     _streams[r_id].reject = err_cb;
+                    setTimer(err_cb);
                     return {
                         catch: (cb) =&gt; {
                             if (typeof cb === &#x27;function&#x27;) {
                                 _streams[r_id].reject = cb;
+                                setTimer(cb);
                             }
                         }
                     }
@@ -292,11 +309,12 @@ export default function Socket(input_params = {}) {
      * @private
      */
     function _processMessage(msg) {
-        let response = JSON.parse(msg.data);
+        const response = JSON.parse(msg.data);
         if (typeof response.echo_req !== &#x27;undefined&#x27; &amp;&amp; typeof response.echo_req.passthrough !== &#x27;undefined&#x27; &amp;&amp; response.echo_req.passthrough.r_id) {
 
-            let r_id = response.echo_req.passthrough.r_id;
+            const r_id = response.echo_req.passthrough.r_id;
             if (_requests[r_id]) {
+                clearTimeout(_requests[r_id].timeout);
                 if (response.msg_type &amp;&amp; response[response.msg_type]) {
                     _requests[r_id][&#x27;resolve&#x27;](response[response.msg_type]);
                 } else {
@@ -304,7 +322,9 @@ export default function Socket(input_params = {}) {
                 }
                 delete _requests[response.req_id];
             } else if (_streams[r_id]) {
+                clearTimeout(_streams[r_id].timeout);
                 if (response.msg_type &amp;&amp; response[response.msg_type]) {
+                    _streams[r_id].id = response[response.msg_type].id;
                     _streams[r_id][&#x27;resolve&#x27;](response[response.msg_type]);
                 } else {
                     _streams[r_id][&#x27;reject&#x27;](response[&#x27;error&#x27;]);
@@ -320,7 +340,7 @@ export default function Socket(input_params = {}) {
      */
     function close() {
         _closed = 1;
-        _connection().then((ws) =&gt; ws.close());
+        _getConnection().then((ws) =&gt; ws.close());
     }
 
     constructor(input_params);

@@ -1,5 +1,5 @@
 import configureStore from './lib/store/configureStore.js';
-import {getMarkets} from './lib/actions/symbols' 
+import {getSymbols,setSymbol} from './lib/actions/symbols' 
 
 let store = configureStore();
-store.dispatch(getMarkets())
+store.dispatch(setSymbol('R_50'))

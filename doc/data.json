@@ -81,7 +81,7 @@
             "description": "Class for providing permanent websocket connection",
             "is_constructor": 1,
             "example": [
-                "\n      let socket = new Socket();\n\n      socket.request({\n          \"active_symbols\": \"brief\"\n      }).then((active_symbols) => {\n          processActive(active_symbols)\n      }).catch((error) => {\n          processError(error);\n      });\n      \n      socket.stream({\n          \"ticks\": \"R_50\"\n      }).then((tick) => {\n          processTick(active_symbols)\n      }).catch((error) => {\n          processError(error);\n      });\n        \n      socket.close();"
+                "\n      \n      const socket = new Socket({\n         url: 'wss://ws.binaryws.com/websockets/v3',\n         check_timeout: 30, // Send ping request every 30 seconds\n         response_timeout: 10 // Consider request be failed if no response for 10 seconds\n      });\n\n      socket.request({\n          \"active_symbols\": \"brief\"\n      }).then((active_symbols) => {\n          processActive(active_symbols)\n      }).catch((error) => {\n          processError(error);\n      });\n      \n      socket.stream({\n          \"ticks\": \"R_50\"\n      }).then((tick) => {\n          processTick(active_symbols)\n      }).catch((error) => {\n          processError(error);\n      });\n        \n      socket.close();"
             ]
         }
     },
@@ -384,13 +384,13 @@
         },
         {
             "file": "lib/utils/socket.js",
-            "line": 40,
+            "line": 45,
             "itemtype": "method",
             "name": "constructor",
             "params": [
                 {
                     "name": "params",
-                    "description": "{\n     check_timeout: {Number},\n     recon_timeout: {Number},\n     url: {String}\n}",
+                    "description": "{\n     check_timeout: {Number},\n     response_timeout: {Number},\n     url: {String}\n}",
                     "type": "Object"
                 }
             ],
@@ -398,7 +398,7 @@
         },
         {
             "file": "lib/utils/socket.js",
-            "line": 56,
+            "line": 61,
             "description": "Create WS connection and provides connection Promise",
             "itemtype": "method",
             "name": "_connect",
@@ -408,7 +408,7 @@
         },
         {
             "file": "lib/utils/socket.js",
-            "line": 92,
+            "line": 97,
             "itemtype": "method",
             "name": "_reconnect",
             "access": "private",
@@ -417,17 +417,17 @@
         },
         {
             "file": "lib/utils/socket.js",
-            "line": 107,
+            "line": 112,
             "description": "Returns connection promise",
             "itemtype": "method",
-            "name": "_connection",
+            "name": "_getConnection",
             "access": "private",
             "tagname": "",
             "class": "Socket"
         },
         {
             "file": "lib/utils/socket.js",
-            "line": 116,
+            "line": 121,
             "description": "Makes ws request and retruns answer in then() method and error in catch() method",
             "itemtype": "method",
             "name": "request",
@@ -445,7 +445,7 @@
         },
         {
             "file": "lib/utils/socket.js",
-            "line": 148,
+            "line": 156,
             "description": "Makes ws request for stream and retruns answer in then() method and error in catch() method",
             "itemtype": "method",
             "name": "stream",
@@ -463,7 +463,7 @@
         },
         {
             "file": "lib/utils/socket.js",
-            "line": 205,
+            "line": 222,
             "description": "Processes WS response message",
             "itemtype": "method",
             "name": "_processMessage",
@@ -473,7 +473,7 @@
         },
         {
             "file": "lib/utils/socket.js",
-            "line": 233,
+            "line": 253,
             "description": "Closes connection",
             "itemtype": "method",
             "name": "close",
