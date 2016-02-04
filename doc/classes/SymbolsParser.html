@@ -39,6 +39,7 @@
                         <div id="api-tabview-panel">
                             <ul id="api-classes" class="apis classes">
                                 <li><a href="../classes/ContractsParser.html">ContractsParser</a></li>
+                                <li><a href="../classes/Socket.html">Socket</a></li>
                                 <li><a href="../classes/SymbolsParser.html">SymbolsParser</a></li>
                             </ul>
                 
@@ -152,15 +153,15 @@
                     <h3>Methods</h3>
 
                     <ul class="index-list methods">
-                            <li class="index-item method">
+                            <li class="index-item method private">
                                 <a href="#method__addSymbolToTree">_addSymbolToTree</a>
 
                             </li>
-                            <li class="index-item method">
+                            <li class="index-item method private">
                                 <a href="#method__parse">_parse</a>
 
                             </li>
-                            <li class="index-item method">
+                            <li class="index-item method private">
                                 <a href="#method__sortSymbolsList">_sortSymbolsList</a>
 
                             </li>
@@ -176,6 +177,10 @@
                                 <a href="#method_getSymbols">getSymbols</a>
 
                             </li>
+                            <li class="index-item method">
+                                <a href="#method_isMarketOpened">isMarketOpened</a>
+
+                            </li>
                     </ul>
                 </div>
 
@@ -186,7 +191,7 @@
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
 
-<div id="method__addSymbolToTree" class="method item">
+<div id="method__addSymbolToTree" class="method item private">
     <h3 class="name"><code>_addSymbolToTree</code></h3>
 
         <div class="args">
@@ -205,6 +210,7 @@
         </span>
 
 
+        <span class="flag private">private</span>
 
 
 
@@ -213,7 +219,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_parsers_symbols.js.html#l77"><code>lib&#x2F;parsers&#x2F;symbols.js:77</code></a>
+        <a href="../files/lib_parsers_symbols.js.html#l78"><code>lib&#x2F;parsers&#x2F;symbols.js:78</code></a>
         </p>
 
 
@@ -264,7 +270,7 @@
 
 
 </div>
-<div id="method__parse" class="method item">
+<div id="method__parse" class="method item private">
     <h3 class="name"><code>_parse</code></h3>
 
         <div class="args">
@@ -280,6 +286,7 @@
         </span>
 
 
+        <span class="flag private">private</span>
 
 
 
@@ -328,7 +335,7 @@
 
 
 </div>
-<div id="method__sortSymbolsList" class="method item">
+<div id="method__sortSymbolsList" class="method item private">
     <h3 class="name"><code>_sortSymbolsList</code></h3>
 
         <div class="args">
@@ -344,6 +351,7 @@
         </span>
 
 
+        <span class="flag private">private</span>
 
 
 
@@ -352,7 +360,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_parsers_symbols.js.html#l52"><code>lib&#x2F;parsers&#x2F;symbols.js:52</code></a>
+        <a href="../files/lib_parsers_symbols.js.html#l53"><code>lib&#x2F;parsers&#x2F;symbols.js:53</code></a>
         </p>
 
 
@@ -468,7 +476,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_parsers_symbols.js.html#l117"><code>lib&#x2F;parsers&#x2F;symbols.js:117</code></a>
+        <a href="../files/lib_parsers_symbols.js.html#l119"><code>lib&#x2F;parsers&#x2F;symbols.js:119</code></a>
         </p>
 
 
@@ -547,7 +555,7 @@ is_sub: 1
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_parsers_symbols.js.html#l160"><code>lib&#x2F;parsers&#x2F;symbols.js:160</code></a>
+        <a href="../files/lib_parsers_symbols.js.html#l162"><code>lib&#x2F;parsers&#x2F;symbols.js:162</code></a>
         </p>
 
 
@@ -595,6 +603,69 @@ Map({
 })
 ]</p>
 
+            </div>
+        </div>
+
+
+</div>
+<div id="method_isMarketOpened" class="method item">
+    <h3 class="name"><code>isMarketOpened</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>market_name</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Bool</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_parsers_symbols.js.html#l186"><code>lib&#x2F;parsers&#x2F;symbols.js:186</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns true if market exists and opened and false if not.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">market_name</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Bool</span>:
             </div>
         </div>
 

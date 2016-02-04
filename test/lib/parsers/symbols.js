@@ -150,4 +150,10 @@ describe('SymbolsParser Class tests', () => {
             })
         ]));
     })
+
+    it('Checks if market is opened',()=>{
+        expect(parsed.isMarketOpened('random')).to.equal(1);
+        expect(parsed.isMarketOpened('wrong_market')).to.equal(0);
+        expect(parsed.isMarketOpened('forex')).to.equal(0);
+    })
 })

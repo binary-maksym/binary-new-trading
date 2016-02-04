@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>lib/utils/socket.js - Websocket trading page UI</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../../resources/img/logo.png" title="Websocket trading page UI"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/ContractsParser.html">ContractsParser</a></li>
+                                <li><a href="../classes/Socket.html">Socket</a></li>
+                                <li><a href="../classes/SymbolsParser.html">SymbolsParser</a></li>
+                            </ul>
+                
+                
+                            <ul id="api-modules" class="apis modules">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: lib/utils/socket.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * Class for providing permanent websocket connection
+ *
+ * @class Socket
+ * @constructor
+ * @example
+ *       let socket = new Socket();
+ *
+ *       socket.request({
+ *           &quot;active_symbols&quot;: &quot;brief&quot;
+ *       }).then((active_symbols) =&gt; {
+ *           processActive(active_symbols)
+ *       }).catch((error) =&gt; {
+ *           processError(error);
+ *       });
+ *       
+ *       socket.stream({
+ *           &quot;ticks&quot;: &quot;R_50&quot;
+ *       }).then((tick) =&gt; {
+ *           processTick(active_symbols)
+ *       }).catch((error) =&gt; {
+ *           processError(error);
+ *       });
+ *         
+ *       socket.close();
+ */
+
+import shortid from &#x27;shortid&#x27;;
+export const WS_API = Symbol(&#x27;WS API&#x27;)
+
+export default function Socket(input_params = {}) {
+
+    let _requests = {},
+        _streams = {};
+
+    let _params = {};
+    let _connection_;
+    let _closed = 0;
+
+    /**
+     * @method constructor
+     * @param {Object} params {
+     *      check_timeout: {Number},
+     *      recon_timeout: {Number},
+     *      url: {String}
+     * }      
+     */
+    function constructor(p = {}) {
+        _params.check_timeout = p.check_timeout ? p.check_timeout : 15;
+        _params.recon_timeout = p.recon_timeout ? p.recon_timeout : 5; // in seconds
+        _params.url = p.url ? p.url : &#x27;wss://ws.binaryws.com/websockets/v3&#x27;;
+
+        _connect();
+    }
+
+    /**
+     * Create WS connection and provides connection Promise    
+     * @method _connect 
+     * @private
+     */
+    function _connect() {
+        let ws = new WebSocket(_params.url);
+
+        _connection_ = new Promise((resolve, reject) =&gt; {
+            ws.onopen = function() {
+                startTimer();
+                resolve(ws);
+            }
+        });
+
+        let recon_timer, check_timer, startTimer = () =&gt; check_timer = setTimeout(() =&gt; {
+            recon_timer = setTimeout(() =&gt; _connection_.then((ws) =&gt; ws.close()), _params.recon_timeout * 1000)
+            request({
+                ping: 1
+            }).then(() =&gt; {
+                clearTimeout(recon_timer);
+                startTimer();
+            })
+        }, _params.check_timeout * 1000);
+
+        ws.onmessage = (msg) =&gt; _processMessage(msg);
+
+        ws.onclose = () =&gt; {
+            clearTimeout(recon_timer);
+            clearTimeout(check_timer);
+            if (!_closed) {
+                _reconnect()
+            }
+        };
+    }
+
+    /**
+     * @method _reconnect 
+     * @private
+     */
+    function _reconnect() {
+
+        _connect();
+
+        let old_streams = Object.assign({}, _streams);
+        _streams = {};
+        for (let k of Object.keys(old_streams)) {
+            stream(old_streams[k].request).then(old_streams[k].resolve).catch(old_streams[k].reject);
+        }
+    }
+
+    /**
+     * Returns connection promise   
+     * @method _connection 
+     * @private
+     */
+    function _connection() {
+        return _connection_;
+    }
+
+    /**
+     * Makes ws request and retruns answer in then() method and error in catch() method 
+     * @method request
+     * @param {Object} REQUEST
+     * @example
+     *       socket.request({
+     *           &quot;active_symbols&quot;: &quot;brief&quot;
+     *       }).then((active_symbols) =&gt; {
+     *           processActive(active_symbols)
+     *       }).catch((error) =&gt; {
+     *           processError(error);
+     *       });
+     */
+    function request(req) {
+        if (typeof req === &#x27;object&#x27;) {
+            let request = Object.assign({
+                passthrough: {
+                    r_id: shortid.generate()
+                }
+            }, req);
+            _connection().then((ws) =&gt; {
+                ws.send(JSON.stringify(request));
+            });
+            return new Promise((resolve, reject) =&gt; _requests[request.passthrough.r_id] = {
+                resolve,
+                reject
+            });
+        } else {
+            return Promise.reject(&#x27;Not JSON&#x27;);
+        }
+    }
+
+    /**
+     * Makes ws request for stream and retruns answer in then() method and error in catch() method 
+     * @method stream
+     * @param {Object} REQUEST
+     * @example
+     *       socket.stream({
+     *           &quot;ticks&quot;: &quot;R_50&quot;
+     *       }).then((tick) =&gt; {
+     *           processTick(active_symbols)
+     *       }).catch((error) =&gt; {
+     *           processError(error);
+     *       });
+     */
+    function stream(req) {
+
+        if (typeof req === &#x27;object&#x27;) {
+            let r_id = shortid.generate();
+            let request = Object.assign({
+                passthrough: {
+                    r_id: r_id
+                }
+            }, req);
+            _connection().then((ws) =&gt; {
+                ws.send(JSON.stringify(request));
+            });
+
+            _streams[r_id] = {
+                request: req
+            };
+            return {
+                then: (cb = () =&gt; {}, err_cb = () =&gt; {}) =&gt; {
+                    _streams[r_id].resolve = cb;
+                    _streams[r_id].reject = err_cb;
+                    return {
+                        catch: (cb) =&gt; {
+                            if (typeof cb === &#x27;function&#x27;) {
+                                _streams[r_id].reject = cb;
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            return {
+                then: () =&gt; {
+                    return {
+                        catch: (cb) =&gt; {
+                            if (typeof cb === &#x27;function&#x27;) {
+                                cb(&#x27;Not JSON&#x27;)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Processes WS response message   
+     * @method _processMessage 
+     * @private
+     */
+    function _processMessage(msg) {
+        let response = JSON.parse(msg.data);
+        if (typeof response.echo_req !== &#x27;undefined&#x27; &amp;&amp; typeof response.echo_req.passthrough !== &#x27;undefined&#x27; &amp;&amp; response.echo_req.passthrough.r_id) {
+
+            let r_id = response.echo_req.passthrough.r_id;
+            if (_requests[r_id]) {
+                if (response.msg_type &amp;&amp; response[response.msg_type]) {
+                    _requests[r_id][&#x27;resolve&#x27;](response[response.msg_type]);
+                } else {
+                    _requests[r_id][&#x27;reject&#x27;](response[&#x27;error&#x27;]);
+                }
+                delete _requests[response.req_id];
+            } else if (_streams[r_id]) {
+                if (response.msg_type &amp;&amp; response[response.msg_type]) {
+                    _streams[r_id][&#x27;resolve&#x27;](response[response.msg_type]);
+                } else {
+                    _streams[r_id][&#x27;reject&#x27;](response[&#x27;error&#x27;]);
+                    delete _streams[r_id];
+                }
+            }
+        }
+    }
+
+    /**
+     * Closes connection  
+     * @method close 
+     */
+    function close() {
+        _closed = 1;
+        _connection().then((ws) =&gt; ws.close());
+    }
+
+    constructor(input_params);
+
+    return {
+        request,
+        stream,
+        close
+    }
+}
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

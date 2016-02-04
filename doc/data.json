@@ -23,6 +23,15 @@
             },
             "fors": {},
             "namespaces": {}
+        },
+        "lib/utils/socket.js": {
+            "name": "lib/utils/socket.js",
+            "modules": {},
+            "classes": {
+                "Socket": 1
+            },
+            "fors": {},
+            "namespaces": {}
         }
     },
     "modules": {},
@@ -58,6 +67,22 @@
             "example": [
                 "\n     let parsed_data = new SymbolsParser(response.active_symbols);\n     let opened_markets = parsed_data.getMarkets(1);"
             ]
+        },
+        "Socket": {
+            "name": "Socket",
+            "shortname": "Socket",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "lib/utils/socket.js",
+            "line": 1,
+            "description": "Class for providing permanent websocket connection",
+            "is_constructor": 1,
+            "example": [
+                "\n      let socket = new Socket();\n\n      socket.request({\n          \"active_symbols\": \"brief\"\n      }).then((active_symbols) => {\n          processActive(active_symbols)\n      }).catch((error) => {\n          processError(error);\n      });\n      \n      socket.stream({\n          \"ticks\": \"R_50\"\n      }).then((tick) => {\n          processTick(active_symbols)\n      }).catch((error) => {\n          processError(error);\n      });\n        \n      socket.close();"
+            ]
         }
     },
     "elements": {},
@@ -81,6 +106,8 @@
             "line": 38,
             "itemtype": "method",
             "name": "_parse",
+            "access": "private",
+            "tagname": "",
             "params": [
                 {
                     "name": "contracts",
@@ -96,9 +123,11 @@
         },
         {
             "file": "lib/parsers/contracts.js",
-            "line": 59,
+            "line": 60,
             "itemtype": "method",
             "name": "_addDataToTree",
+            "access": "private",
+            "tagname": "",
             "params": [
                 {
                     "name": "tree",
@@ -119,9 +148,11 @@
         },
         {
             "file": "lib/parsers/contracts.js",
-            "line": 101,
+            "line": 103,
             "itemtype": "method",
             "name": "_completeDurations",
+            "access": "private",
+            "tagname": "",
             "params": [
                 {
                     "name": "durations",
@@ -137,7 +168,7 @@
         },
         {
             "file": "lib/parsers/contracts.js",
-            "line": 131,
+            "line": 134,
             "description": "Returns categories List. List order is taken from /config.json",
             "itemtype": "method",
             "name": "getCategories",
@@ -149,7 +180,7 @@
         },
         {
             "file": "lib/parsers/contracts.js",
-            "line": 157,
+            "line": 160,
             "description": "Returns durations List. List order is taken from /config.json",
             "itemtype": "method",
             "name": "getDurations",
@@ -173,7 +204,7 @@
         },
         {
             "file": "lib/parsers/contracts.js",
-            "line": 183,
+            "line": 186,
             "description": "Returns expiryType List.",
             "itemtype": "method",
             "name": "getExpiryTypes",
@@ -197,7 +228,7 @@
         },
         {
             "file": "lib/parsers/contracts.js",
-            "line": 201,
+            "line": 204,
             "description": "Returns getStartTypes Map hash.",
             "itemtype": "method",
             "name": "getStartTypes",
@@ -233,6 +264,8 @@
             "line": 37,
             "itemtype": "method",
             "name": "_parse",
+            "access": "private",
+            "tagname": "",
             "params": [
                 {
                     "name": "symbols",
@@ -248,9 +281,11 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 52,
+            "line": 53,
             "itemtype": "method",
             "name": "_sortSymbolsList",
+            "access": "private",
+            "tagname": "",
             "params": [
                 {
                     "name": "symbols",
@@ -266,10 +301,12 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 77,
+            "line": 78,
             "description": "Adds symbol to market/submarket tree.",
             "itemtype": "method",
             "name": "_addSymbolToTree",
+            "access": "private",
+            "tagname": "",
             "params": [
                 {
                     "name": "markets",
@@ -290,7 +327,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 117,
+            "line": 119,
             "description": "Returns ordered markets. Markets order is taken from /config.json",
             "itemtype": "method",
             "name": "getMarkets",
@@ -309,7 +346,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 160,
+            "line": 162,
             "description": "Returns symbols for market.",
             "itemtype": "method",
             "name": "getSymbols",
@@ -325,6 +362,122 @@
                 "type": "List()"
             },
             "class": "SymbolsParser"
+        },
+        {
+            "file": "lib/parsers/symbols.js",
+            "line": 186,
+            "description": "Returns true if market exists and opened and false if not.",
+            "itemtype": "method",
+            "name": "isMarketOpened",
+            "params": [
+                {
+                    "name": "market_name",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Bool"
+            },
+            "class": "SymbolsParser"
+        },
+        {
+            "file": "lib/utils/socket.js",
+            "line": 40,
+            "itemtype": "method",
+            "name": "constructor",
+            "params": [
+                {
+                    "name": "params",
+                    "description": "{\n     check_timeout: {Number},\n     recon_timeout: {Number},\n     url: {String}\n}",
+                    "type": "Object"
+                }
+            ],
+            "class": "Socket"
+        },
+        {
+            "file": "lib/utils/socket.js",
+            "line": 56,
+            "description": "Create WS connection and provides connection Promise",
+            "itemtype": "method",
+            "name": "_connect",
+            "access": "private",
+            "tagname": "",
+            "class": "Socket"
+        },
+        {
+            "file": "lib/utils/socket.js",
+            "line": 92,
+            "itemtype": "method",
+            "name": "_reconnect",
+            "access": "private",
+            "tagname": "",
+            "class": "Socket"
+        },
+        {
+            "file": "lib/utils/socket.js",
+            "line": 107,
+            "description": "Returns connection promise",
+            "itemtype": "method",
+            "name": "_connection",
+            "access": "private",
+            "tagname": "",
+            "class": "Socket"
+        },
+        {
+            "file": "lib/utils/socket.js",
+            "line": 116,
+            "description": "Makes ws request and retruns answer in then() method and error in catch() method",
+            "itemtype": "method",
+            "name": "request",
+            "params": [
+                {
+                    "name": "REQUEST",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n      socket.request({\n          \"active_symbols\": \"brief\"\n      }).then((active_symbols) => {\n          processActive(active_symbols)\n      }).catch((error) => {\n          processError(error);\n      });"
+            ],
+            "class": "Socket"
+        },
+        {
+            "file": "lib/utils/socket.js",
+            "line": 148,
+            "description": "Makes ws request for stream and retruns answer in then() method and error in catch() method",
+            "itemtype": "method",
+            "name": "stream",
+            "params": [
+                {
+                    "name": "REQUEST",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n      socket.stream({\n          \"ticks\": \"R_50\"\n      }).then((tick) => {\n          processTick(active_symbols)\n      }).catch((error) => {\n          processError(error);\n      });"
+            ],
+            "class": "Socket"
+        },
+        {
+            "file": "lib/utils/socket.js",
+            "line": 205,
+            "description": "Processes WS response message",
+            "itemtype": "method",
+            "name": "_processMessage",
+            "access": "private",
+            "tagname": "",
+            "class": "Socket"
+        },
+        {
+            "file": "lib/utils/socket.js",
+            "line": 233,
+            "description": "Closes connection",
+            "itemtype": "method",
+            "name": "close",
+            "class": "Socket"
         }
     ],
     "warnings": []
