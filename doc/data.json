@@ -252,7 +252,7 @@
             "name": "constructor",
             "params": [
                 {
-                    "name": "symbols",
+                    "name": "SYMBOLS",
                     "description": "",
                     "type": "Array"
                 }
@@ -261,47 +261,47 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 37,
+            "line": 41,
             "itemtype": "method",
             "name": "_parse",
             "access": "private",
             "tagname": "",
             "params": [
                 {
-                    "name": "symbols",
+                    "name": "SYMBOLS",
                     "description": "",
                     "type": "Array"
                 }
             ],
             "return": {
-                "description": "tree",
-                "type": "Map()"
+                "description": "tree Map(), symbols Map()",
+                "type": "Array"
             },
             "class": "SymbolsParser"
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 53,
+            "line": 60,
             "itemtype": "method",
             "name": "_sortSymbolsList",
             "access": "private",
             "tagname": "",
             "params": [
                 {
-                    "name": "symbols",
+                    "name": "SYMBOLS",
                     "description": "",
                     "type": "List()"
                 }
             ],
             "return": {
-                "description": "symbols",
+                "description": "SYMBOLS",
                 "type": "List()"
             },
             "class": "SymbolsParser"
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 78,
+            "line": 85,
             "description": "Adds symbol to market/submarket tree.",
             "itemtype": "method",
             "name": "_addSymbolToTree",
@@ -309,12 +309,12 @@
             "tagname": "",
             "params": [
                 {
-                    "name": "markets",
+                    "name": "MARKETS",
                     "description": "",
                     "type": "Map()"
                 },
                 {
-                    "name": "symbol",
+                    "name": "SYMBOL",
                     "description": "",
                     "type": "Map()"
                 }
@@ -327,13 +327,39 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 119,
+            "line": 125,
+            "description": "Adds symbol symbols Map()",
+            "itemtype": "method",
+            "name": "_addSymbolToList",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "SYMBOL_OBJ",
+                    "description": "",
+                    "type": "Map()"
+                },
+                {
+                    "name": "SYMBOL",
+                    "description": "",
+                    "type": "Map()"
+                }
+            ],
+            "return": {
+                "description": "symbols Map() with symbol added",
+                "type": "Map()"
+            },
+            "class": "SymbolsParser"
+        },
+        {
+            "file": "lib/parsers/symbols.js",
+            "line": 143,
             "description": "Returns ordered markets. Markets order is taken from /config.json",
             "itemtype": "method",
             "name": "getMarkets",
             "params": [
                 {
-                    "name": "only_opened",
+                    "name": "ONLY_OPENED",
                     "description": "",
                     "type": "0|1"
                 }
@@ -346,13 +372,13 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 162,
+            "line": 186,
             "description": "Returns symbols for market.",
             "itemtype": "method",
             "name": "getSymbols",
             "params": [
                 {
-                    "name": "market_name",
+                    "name": "MARKET_NAME",
                     "description": "",
                     "type": "String"
                 }
@@ -365,13 +391,32 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 186,
+            "line": 217,
+            "description": "Check if symbol exists and is active",
+            "itemtype": "method",
+            "name": "isSymbolActive",
+            "params": [
+                {
+                    "name": "SYMBOL_NAME",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Bool"
+            },
+            "class": "SymbolsParser"
+        },
+        {
+            "file": "lib/parsers/symbols.js",
+            "line": 228,
             "description": "Returns true if market exists and opened and false if not.",
             "itemtype": "method",
             "name": "isMarketOpened",
             "params": [
                 {
-                    "name": "market_name",
+                    "name": "MARKET_NAME",
                     "description": "",
                     "type": "String"
                 }

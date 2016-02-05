@@ -93,7 +93,7 @@
  */
 
 import config from &#x27;../../config&#x27;;
-import {
+import Immutable, {
     List, Map, fromJS
 }
 from &#x27;immutable&#x27;;
@@ -102,13 +102,17 @@ export default class SymbolsParser {
 
     /**
      * @method constructor
-     * @param {Array} symbols
+     * @param {Array} SYMBOLS
      */
     constructor(symbols) {
-        const tree = this._parse(symbols);
+        const [tree,symbols_obj] = this._parse(symbols);
         Object.defineProperties(this, {
             _symbols: {
                 get: () =&gt; symbols,
+                set: () =&gt; {}
+            },
+            symbols: {
+                get: () =&gt; symbols_obj,
                 set: () =&gt; {}
             },
             tree: {
@@ -121,24 +125,27 @@ export default class SymbolsParser {
     /**
      * @method _parse
      * @private
-     * @param {Array} symbols
-     * @return {Map()} tree
+     * @param {Array} SYMBOLS
+     * @return {Array} tree Map(), symbols Map()
      */
     _parse(s) {
-        let symbols = fromJS(s);
-        let sorted_symbols = this._sortSymbolsList(symbols);
+        const symbols = fromJS(s);
         let markets = Map();
-        sorted_symbols.forEach((s) =&gt; {
-            markets = this._addSymbolToTree(markets, s);
-        })
-        return markets;
+        let symbols_obj = Map();
+        if (List.isList(symbols)) {
+            symbols.forEach((s) =&gt; {
+                markets = this._addSymbolToTree(markets, s);
+                symbols_obj = this._addSymbolToList(symbols_obj, s);
+            });
+        }
+        return [markets,symbols_obj];
     }
 
     /**
      * @method _sortSymbolsList
      * @private
-     * @param {List()} symbols
-     * @return {List()} symbols
+     * @param {List()} SYMBOLS
+     * @return {List()} SYMBOLS
      */
     _sortSymbolsList(symbols) {
         if (List.isList(symbols)) {
@@ -164,14 +171,14 @@ export default class SymbolsParser {
      *
      * @method _addSymbolToTree
      * @private
-     * @param {Map()} markets
-     * @param {Map()} symbol
+     * @param {Map()} MARKETS
+     * @param {Map()} SYMBOL
      * @return {Map()} matkets with symbol added    
      */
     _addSymbolToTree(markets = Map(), symbol) {
         if (Map.isMap(symbol) &amp;&amp; symbol.has(&#x27;is_trading_suspended&#x27;) &amp;&amp; symbol.has(&#x27;exchange_is_open&#x27;) &amp;&amp; symbol.get(&#x27;market&#x27;) &amp;&amp; symbol.get(&#x27;market_display_name&#x27;) &amp;&amp; symbol.get(&#x27;submarket_display_name&#x27;) &amp;&amp; symbol.get(&#x27;submarket&#x27;) &amp;&amp; symbol.get(&#x27;symbol&#x27;) &amp;&amp; symbol.get(&#x27;display_name&#x27;)) {
-            let state = !symbol.get(&#x27;is_trading_suspended&#x27;) &amp;&amp; symbol.get(&#x27;exchange_is_open&#x27;);
-            let list = [{
+            const state = !symbol.get(&#x27;is_trading_suspended&#x27;) &amp;&amp; symbol.get(&#x27;exchange_is_open&#x27;);
+            const list = [{
                 market: symbol.get(&#x27;market&#x27;),
                 name: symbol.get(&#x27;market_display_name&#x27;),
                 is_sub: 0
@@ -182,17 +189,16 @@ export default class SymbolsParser {
             }, ];
 
             for (let m of list) {
-                markets = markets.update(m.market, Map(m).set(&#x27;state&#x27;, 0).set(&#x27;symbols&#x27;, List()), (s) =&gt; {
+                markets = markets.update(m.market, Map(m).set(&#x27;state&#x27;, 0), (s) =&gt; {
                     if (state) {
                         s = s.set(&#x27;state&#x27;, 1)
                     }
-                    let symbols = s.get(&#x27;symbols&#x27;);
-                    symbols = symbols.push(Map({
+                    s = s.setIn([&#x27;symbols&#x27;, symbol.get(&#x27;symbol&#x27;)], Map({
                         symbol: symbol.get(&#x27;symbol&#x27;),
+                        submarket: symbol.get(&#x27;submarket&#x27;),
                         name: symbol.get(&#x27;display_name&#x27;),
                         state: state
-                    }))
-                    s = s.set(&#x27;symbols&#x27;, symbols);
+                    }));
                     return s;
                 });
             }
@@ -201,10 +207,28 @@ export default class SymbolsParser {
     }
 
     /**
+     * Adds symbol symbols Map()
+     *
+     * @method _addSymbolToList
+     * @private
+     * @param {Map()} SYMBOL_OBJ
+     * @param {Map()} SYMBOL
+     * @return {Map()} symbols Map() with symbol added 
+     */
+    _addSymbolToList(symbols_obj = Map(), symbol) {
+        if (Map.isMap(symbol) &amp;&amp; symbol.has(&#x27;is_trading_suspended&#x27;) &amp;&amp; symbol.has(&#x27;exchange_is_open&#x27;) &amp;&amp; symbol.get(&#x27;market&#x27;) &amp;&amp; symbol.get(&#x27;market_display_name&#x27;) &amp;&amp; symbol.get(&#x27;submarket_display_name&#x27;) &amp;&amp; symbol.get(&#x27;submarket&#x27;) &amp;&amp; symbol.get(&#x27;symbol&#x27;) &amp;&amp; symbol.get(&#x27;display_name&#x27;)) {
+            const state = !symbol.get(&#x27;is_trading_suspended&#x27;) &amp;&amp; symbol.get(&#x27;exchange_is_open&#x27;);
+            symbols_obj = symbols_obj.set(symbol.get(&#x27;symbol&#x27;), state);
+        }
+
+        return symbols_obj;
+    }
+
+    /**
      * Returns ordered markets. Markets order is taken from /config.json
      *
      * @method getMarkets
-     * @param {0|1} only_opened
+     * @param {0|1} ONLY_OPENED
      * @return {List()}
         [
             Map({
@@ -227,7 +251,7 @@ export default class SymbolsParser {
         this.tree.sort((a, b) =&gt; {
             return config.markets_order[a.get(&#x27;market&#x27;)] - config.markets_order[b.get(&#x27;market&#x27;)]
         }).forEach((a) =&gt; {
-            let row = Map({
+            const row = Map({
                 market: a.get(&#x27;market&#x27;),
                 name: a.get(&#x27;name&#x27;),
                 state: a.get(&#x27;state&#x27;),
@@ -247,7 +271,7 @@ export default class SymbolsParser {
      * Returns symbols for market.
      *
      * @method getSymbols
-     * @param {String} market_name
+     * @param {String} MARKET_NAME
      * @return {List()}  
         [
              Map({
@@ -264,18 +288,36 @@ export default class SymbolsParser {
         ]     
      */
     getSymbols(s) {
-        return this.tree.getIn([s, &#x27;symbols&#x27;]);
+        const symbols_obj = this.tree.getIn([s, &#x27;symbols&#x27;]);
+        if (symbols_obj) {
+            const sorted_symbols = this._sortSymbolsList(symbols_obj.toList());
+            const result_symbols = sorted_symbols.map(s =&gt; s.delete(&#x27;submarket&#x27;));
+            return result_symbols;
+        } else {
+            return List();
+        }
+    }
+
+    /**
+     * Check if symbol exists and is active
+     *
+     * @method isSymbolActive
+     * @param {String} SYMBOL_NAME
+     * @return {Bool}     
+     */
+    isSymbolActive(symbol) {
+        return this.symbols.get(symbol) ? 1 : 0;
     }
 
     /**
      * Returns true if market exists and opened and false if not.
      *
      * @method isMarketOpened
-     * @param {String} market_name
+     * @param {String} MARKET_NAME
      * @return {Bool}      
      */
     isMarketOpened(market) {
-        return this.tree.getIn([market,&#x27;state&#x27;]) ? 1 : 0;
+        return this.tree.getIn([market, &#x27;state&#x27;]) ? 1 : 0;
     }
 }
 

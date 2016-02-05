@@ -149,6 +149,8 @@ describe('SymbolsParser Class tests', () => {
                 "state": 1
             })
         ]));
+
+        expect(parsed.getSymbols('non existing market')).to.equal(List());
     })
 
     it('Checks if market is opened',()=>{
@@ -156,4 +158,11 @@ describe('SymbolsParser Class tests', () => {
         expect(parsed.isMarketOpened('wrong_market')).to.equal(0);
         expect(parsed.isMarketOpened('forex')).to.equal(0);
     })
+
+    it('Checks if symbol is active',()=>{
+        expect(parsed.isSymbolActive('R_50')).to.equal(1);
+        expect(parsed.isMarketOpened('WLDGBP')).to.equal(0);
+        expect(parsed.isMarketOpened('non existing')).to.equal(0);
+    })
+
 })
