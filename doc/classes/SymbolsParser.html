@@ -174,7 +174,15 @@
 
                             </li>
                             <li class="index-item method">
+                                <a href="#method_getFirstActiveSymbol">getFirstActiveSymbol</a>
+
+                            </li>
+                            <li class="index-item method">
                                 <a href="#method_getMarkets">getMarkets</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_getSymbol">getSymbol</a>
 
                             </li>
                             <li class="index-item method">
@@ -539,6 +547,71 @@
 
 
 </div>
+<div id="method_getFirstActiveSymbol" class="method item">
+    <h3 class="name"><code>getFirstActiveSymbol</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>MARKET</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Map</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_parsers_symbols.js.html#l228"><code>lib&#x2F;parsers&#x2F;symbols.js:228</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns first active symbol for market.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">MARKET</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Map</span>:
+                    <p>SYMBOL details</p>
+
+            </div>
+        </div>
+
+
+</div>
 <div id="method_getMarkets" class="method item">
     <h3 class="name"><code>getMarkets</code></h3>
 
@@ -618,19 +691,19 @@ is_sub: 1
 
 
 </div>
-<div id="method_getSymbols" class="method item">
-    <h3 class="name"><code>getSymbols</code></h3>
+<div id="method_getSymbol" class="method item">
+    <h3 class="name"><code>getSymbol</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>MARKET_NAME</code>
+                        <code>SYMBOL</code>
                 </li>
             </ul><span class="paren">)</span>
         </div>
 
         <span class="returns-inline">
-            <span class="type">List()</span>
+            <span class="type">Map</span>
         </span>
 
 
@@ -659,7 +732,72 @@ is_sub: 1
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">MARKET_NAME</code>
+                        <code class="param-name">SYMBOL</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Map</span>:
+                    <p>SYMBOL details</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_getSymbols" class="method item">
+    <h3 class="name"><code>getSymbols</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>MARKET</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">List()</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_parsers_symbols.js.html#l197"><code>lib&#x2F;parsers&#x2F;symbols.js:197</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns symbols for market.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">MARKET</code>
                         <span class="type">String</span>
 
 
@@ -701,7 +839,7 @@ Map({
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>MARKET_NAME</code>
+                        <code>MARKET</code>
                 </li>
             </ul><span class="paren">)</span>
         </div>
@@ -719,7 +857,7 @@ Map({
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_parsers_symbols.js.html#l228"><code>lib&#x2F;parsers&#x2F;symbols.js:228</code></a>
+        <a href="../files/lib_parsers_symbols.js.html#l251"><code>lib&#x2F;parsers&#x2F;symbols.js:251</code></a>
         </p>
 
 
@@ -736,7 +874,7 @@ Map({
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">MARKET_NAME</code>
+                        <code class="param-name">MARKET</code>
                         <span class="type">String</span>
 
 
@@ -764,7 +902,7 @@ Map({
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>SYMBOL_NAME</code>
+                        <code>SYMBOL</code>
                 </li>
             </ul><span class="paren">)</span>
         </div>
@@ -782,7 +920,7 @@ Map({
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/lib_parsers_symbols.js.html#l217"><code>lib&#x2F;parsers&#x2F;symbols.js:217</code></a>
+        <a href="../files/lib_parsers_symbols.js.html#l240"><code>lib&#x2F;parsers&#x2F;symbols.js:240</code></a>
         </p>
 
 
@@ -799,7 +937,7 @@ Map({
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">SYMBOL_NAME</code>
+                        <code class="param-name">SYMBOL</code>
                         <span class="type">String</span>
 
 

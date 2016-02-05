@@ -105,7 +105,7 @@ export default class SymbolsParser {
      * @param {Array} SYMBOLS
      */
     constructor(symbols) {
-        const [tree,symbols_obj] = this._parse(symbols);
+        const [tree, symbols_obj] = this._parse(symbols);
         Object.defineProperties(this, {
             _symbols: {
                 get: () =&gt; symbols,
@@ -138,7 +138,7 @@ export default class SymbolsParser {
                 symbols_obj = this._addSymbolToList(symbols_obj, s);
             });
         }
-        return [markets,symbols_obj];
+        return [markets, symbols_obj];
     }
 
     /**
@@ -218,7 +218,7 @@ export default class SymbolsParser {
     _addSymbolToList(symbols_obj = Map(), symbol) {
         if (Map.isMap(symbol) &amp;&amp; symbol.has(&#x27;is_trading_suspended&#x27;) &amp;&amp; symbol.has(&#x27;exchange_is_open&#x27;) &amp;&amp; symbol.get(&#x27;market&#x27;) &amp;&amp; symbol.get(&#x27;market_display_name&#x27;) &amp;&amp; symbol.get(&#x27;submarket_display_name&#x27;) &amp;&amp; symbol.get(&#x27;submarket&#x27;) &amp;&amp; symbol.get(&#x27;symbol&#x27;) &amp;&amp; symbol.get(&#x27;display_name&#x27;)) {
             const state = !symbol.get(&#x27;is_trading_suspended&#x27;) &amp;&amp; symbol.get(&#x27;exchange_is_open&#x27;);
-            symbols_obj = symbols_obj.set(symbol.get(&#x27;symbol&#x27;), state);
+            symbols_obj = symbols_obj.set(symbol.get(&#x27;symbol&#x27;), symbol.set(&#x27;state&#x27;, state));
         }
 
         return symbols_obj;
@@ -270,8 +270,19 @@ export default class SymbolsParser {
     /**
      * Returns symbols for market.
      *
+     * @method getSymbol
+     * @param {String} SYMBOL
+     * @return {Map} SYMBOL details     
+     */
+    getSymbol(s) {
+        return this.symbols.get(s);
+    }
+
+    /**
+     * Returns symbols for market.
+     *
      * @method getSymbols
-     * @param {String} MARKET_NAME
+     * @param {String} MARKET
      * @return {List()}  
         [
              Map({
@@ -299,21 +310,33 @@ export default class SymbolsParser {
     }
 
     /**
+     * Returns first active symbol for market.
+     *
+     * @method getFirstActiveSymbol
+     * @param {String} MARKET
+     * @return {Map} SYMBOL details    
+     */
+    getFirstActiveSymbol(market) {
+        let symbols = this.getSymbols(market).filter((sy)=&gt;sy.get(&#x27;state&#x27;));;
+        return this.symbols.get(symbols.first().get(&#x27;symbol&#x27;));
+    }
+
+    /**
      * Check if symbol exists and is active
      *
      * @method isSymbolActive
-     * @param {String} SYMBOL_NAME
+     * @param {String} SYMBOL
      * @return {Bool}     
      */
     isSymbolActive(symbol) {
-        return this.symbols.get(symbol) ? 1 : 0;
+        return this.symbols.getIn([symbol, &#x27;state&#x27;]) ? 1 : 0;
     }
 
     /**
      * Returns true if market exists and opened and false if not.
      *
      * @method isMarketOpened
-     * @param {String} MARKET_NAME
+     * @param {String} MARKET
      * @return {Bool}      
      */
     isMarketOpened(market) {

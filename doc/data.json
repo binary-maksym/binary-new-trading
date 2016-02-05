@@ -375,10 +375,29 @@
             "line": 186,
             "description": "Returns symbols for market.",
             "itemtype": "method",
+            "name": "getSymbol",
+            "params": [
+                {
+                    "name": "SYMBOL",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "SYMBOL details",
+                "type": "Map"
+            },
+            "class": "SymbolsParser"
+        },
+        {
+            "file": "lib/parsers/symbols.js",
+            "line": 197,
+            "description": "Returns symbols for market.",
+            "itemtype": "method",
             "name": "getSymbols",
             "params": [
                 {
-                    "name": "MARKET_NAME",
+                    "name": "MARKET",
                     "description": "",
                     "type": "String"
                 }
@@ -391,13 +410,32 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 217,
+            "line": 228,
+            "description": "Returns first active symbol for market.",
+            "itemtype": "method",
+            "name": "getFirstActiveSymbol",
+            "params": [
+                {
+                    "name": "MARKET",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "SYMBOL details",
+                "type": "Map"
+            },
+            "class": "SymbolsParser"
+        },
+        {
+            "file": "lib/parsers/symbols.js",
+            "line": 240,
             "description": "Check if symbol exists and is active",
             "itemtype": "method",
             "name": "isSymbolActive",
             "params": [
                 {
-                    "name": "SYMBOL_NAME",
+                    "name": "SYMBOL",
                     "description": "",
                     "type": "String"
                 }
@@ -410,13 +448,13 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 228,
+            "line": 251,
             "description": "Returns true if market exists and opened and false if not.",
             "itemtype": "method",
             "name": "isMarketOpened",
             "params": [
                 {
-                    "name": "MARKET_NAME",
+                    "name": "MARKET",
                     "description": "",
                     "type": "String"
                 }
