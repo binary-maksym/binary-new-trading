@@ -4,4 +4,5 @@ import action_creators from './lib/actions/core'
 let store = configureStore();
 // store.dispatch(setSymbol('lol2'))
 // store.dispatch(action_creators.setSymbol('R_25'))
-store.dispatch(action_creators.setMarket("forex"))
+store.dispatch(action_creators.setMarket("random"))
+// store.dispatch(action_creators.getSymbols())

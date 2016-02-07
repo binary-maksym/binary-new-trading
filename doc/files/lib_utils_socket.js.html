@@ -291,12 +291,14 @@ export default function Socket(input_params = {}) {
                 catch: (cb) =&gt; {
                     _streams[r_id].reject = cb;
                     setTimer(cb);
-                    return then: (cb = () =&gt; {}, err_cb) =&gt; {
-                        _streams[r_id].resolve = cb;
-                        if (typeof err_cb === &#x27;function&#x27;) {
-                            _streams[r_id].reject = err_cb;
+                    return {
+                        then: (cb = () =&gt; {}, err_cb) =&gt; {
+                            _streams[r_id].resolve = cb;
+                            if (typeof err_cb === &#x27;function&#x27;) {
+                                _streams[r_id].reject = err_cb;
+                            }
+                            setTimer(err_cb);
                         }
-                        setTimer(err_cb);
                     }
                 }
             }
