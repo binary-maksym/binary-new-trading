@@ -190,7 +190,7 @@
         },
         {
             "file": "lib/parsers/contracts.js",
-            "line": 134,
+            "line": 136,
             "description": "Returns categories List. List order is taken from /config.json",
             "itemtype": "method",
             "name": "getCategories",
@@ -202,7 +202,7 @@
         },
         {
             "file": "lib/parsers/contracts.js",
-            "line": 160,
+            "line": 162,
             "description": "Returns durations List. List order is taken from /config.json",
             "itemtype": "method",
             "name": "getDurations",
@@ -226,7 +226,7 @@
         },
         {
             "file": "lib/parsers/contracts.js",
-            "line": 186,
+            "line": 193,
             "description": "Returns expiryType List.",
             "itemtype": "method",
             "name": "getExpiryTypes",
@@ -250,7 +250,7 @@
         },
         {
             "file": "lib/parsers/contracts.js",
-            "line": 204,
+            "line": 216,
             "description": "Returns getStartTypes Map hash.",
             "itemtype": "method",
             "name": "getStartTypes",

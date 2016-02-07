@@ -3,7 +3,7 @@ import {
 }
 from 'chai';
 import {
-    List, Map
+    List, Map, fromJS
 }
 from 'immutable';
 import ContractsParser from '../../../lib/parsers/contracts';
@@ -48,6 +48,9 @@ describe('ContractsParser Class tests', () => {
                 })
             })
         }));
+
+        expect(parsed._addDataToTree()).to.equal(Map())
+        expect(parsed._addDataToTree(undefined, 'wrong_data')).to.equal(Map())
     });
 
     it('Durations completing', () => {
@@ -82,6 +85,8 @@ describe('ContractsParser Class tests', () => {
                 "max_duration": "1d"
             })
         }));
+
+        expect(parsed._completeDurations()).to.equal(Map())
     });
 
     it('Get sorted Categories', () => {
@@ -116,6 +121,8 @@ describe('ContractsParser Class tests', () => {
                 "name": "Spreads"
             })
         ]));
+
+        expect((new ContractsParser()).getCategories()).to.equal(List())
     });
 
     it('Get Start Types', () => {
@@ -195,5 +202,41 @@ describe('ContractsParser Class tests', () => {
                 })
             })
         }));
-    })
+    });
+
+    it('Get durations', () => {
+        expect(parsed.getDurations()).to.equal(List());
+        expect(parsed.getDurations('touchnotouch', 'spot')).to.equal(fromJS([{
+            "min_duration": "2m",
+            "max_duration": "1d",
+            "barrier": "+51.77",
+            "value": "m"
+        }, {
+            "min_duration": "1h",
+            "max_duration": "1d",
+            "barrier": "+51.77",
+            "value": "h"
+        }, {
+            "min_duration": "1d",
+            "max_duration": "365d",
+            "barrier": "+1462.51",
+            "value": "d"
+        }]));
+    });
+
+    it('Get Expiry Types', () => {
+        expect(parsed.getExpiryTypes()).to.equal(List());
+        expect(parsed.getExpiryTypes('touchnotouch', 'spot')).to.equal(fromJS([
+            'duration',
+            'end_date'
+        ]));
+    });
+
+    it('Get Start Types', () => {
+        expect(parsed.getStartTypes()).to.equal(Map());
+        expect(parsed.getStartTypes('callput')).to.equal(fromJS({
+            spot: 1,
+            forward: 1
+        }));
+    });
 });
