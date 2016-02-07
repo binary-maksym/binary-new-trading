@@ -104,7 +104,7 @@ export default class ContractsParser {
 
     /**
      * @method constructor
-     * @param {Array} contracts
+     * @param {Array} CONTRACTS
      */
     constructor(contracts) {
         const tree = this._parse(contracts);
@@ -123,8 +123,8 @@ export default class ContractsParser {
     /**
      * @method _parse
      * @private
-     * @param {List()} contracts
-     * @return {Map()} tree
+     * @param {List()} CONTRACTS
+     * @return {Map()} TREE
      */
     _parse(c) {
         const contracts = fromJS(c);
@@ -145,9 +145,9 @@ export default class ContractsParser {
     /**
      * @method _addDataToTree
      * @private
-     * @param {Map()} tree
-     * @param {Map()} contract
-     * @return {Map()} tree
+     * @param {Map()} TREE
+     * @param {Map()} CONTRACT
+     * @return {Map()} UPDATED_TREE
      */
     _addDataToTree(tree = Map(), c) {
         if (Map.isMap(c) &amp;&amp; c.has(&#x27;min_contract_duration&#x27;) &amp;&amp; c.has(&#x27;max_contract_duration&#x27;) &amp;&amp; c.has(&#x27;contract_category&#x27;) &amp;&amp; c.has(&#x27;contract_category_display&#x27;) &amp;&amp; c.has(&#x27;start_type&#x27;)) {
@@ -188,8 +188,8 @@ export default class ContractsParser {
     /**
      * @method _completeDurations
      * @private
-     * @param {Map()} durations
-     * @return {Map()} durations
+     * @param {Map()} DURATIONS
+     * @return {Map()} UPDATED_DURATIONS
      */
     _completeDurations(durations) {
         let order = config.durations_order;
@@ -246,8 +246,8 @@ export default class ContractsParser {
      * Returns durations List. List order is taken from /config.json
      *
      * @method getDurations
-     * @param {String} category
-     * @param {String} start_type, default &quot;spot&quot;
+     * @param {String} CATEGORY
+     * @param {String} START_TYPE, default &quot;spot&quot;
      * @return {List()}
        [
            Map {
@@ -272,8 +272,8 @@ export default class ContractsParser {
      * Returns expiryType List.
      *
      * @method getExpiryTypes
-     * @param {String} category
-     * @param {String} start_type, default &quot;spot&quot;
+     * @param {String} CATEGORY
+     * @param {String} START_TYPE, default &quot;spot&quot;
      * @return {List()}
        [ &quot;duration&quot;, &quot;end_date&quot;]
      */
@@ -290,7 +290,7 @@ export default class ContractsParser {
      * Returns getStartTypes Map hash.
      *
      * @method getStartTypes
-     * @param {String} category
+     * @param {String} CATEGORY
      * @return {Map()}
        { &quot;spot&quot;: 1, &quot;forward&quot;: 1 }
      */

@@ -116,7 +116,7 @@
             "name": "constructor",
             "params": [
                 {
-                    "name": "contracts",
+                    "name": "CONTRACTS",
                     "description": "",
                     "type": "Array"
                 }
@@ -132,13 +132,13 @@
             "tagname": "",
             "params": [
                 {
-                    "name": "contracts",
+                    "name": "CONTRACTS",
                     "description": "",
                     "type": "List()"
                 }
             ],
             "return": {
-                "description": "tree",
+                "description": "TREE",
                 "type": "Map()"
             },
             "class": "ContractsParser"
@@ -152,18 +152,18 @@
             "tagname": "",
             "params": [
                 {
-                    "name": "tree",
+                    "name": "TREE",
                     "description": "",
                     "type": "Map()"
                 },
                 {
-                    "name": "contract",
+                    "name": "CONTRACT",
                     "description": "",
                     "type": "Map()"
                 }
             ],
             "return": {
-                "description": "tree",
+                "description": "UPDATED_TREE",
                 "type": "Map()"
             },
             "class": "ContractsParser"
@@ -177,13 +177,13 @@
             "tagname": "",
             "params": [
                 {
-                    "name": "durations",
+                    "name": "DURATIONS",
                     "description": "",
                     "type": "Map()"
                 }
             ],
             "return": {
-                "description": "durations",
+                "description": "UPDATED_DURATIONS",
                 "type": "Map()"
             },
             "class": "ContractsParser"
@@ -208,12 +208,12 @@
             "name": "getDurations",
             "params": [
                 {
-                    "name": "category",
+                    "name": "CATEGORY",
                     "description": "",
                     "type": "String"
                 },
                 {
-                    "name": "start_type,",
+                    "name": "START_TYPE,",
                     "description": "default \"spot\"",
                     "type": "String"
                 }
@@ -232,12 +232,12 @@
             "name": "getExpiryTypes",
             "params": [
                 {
-                    "name": "category",
+                    "name": "CATEGORY",
                     "description": "",
                     "type": "String"
                 },
                 {
-                    "name": "start_type,",
+                    "name": "START_TYPE,",
                     "description": "default \"spot\"",
                     "type": "String"
                 }
@@ -256,7 +256,7 @@
             "name": "getStartTypes",
             "params": [
                 {
-                    "name": "category",
+                    "name": "CATEGORY",
                     "description": "",
                     "type": "String"
                 }
