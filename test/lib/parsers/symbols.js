@@ -92,7 +92,7 @@ describe('SymbolsParser Class tests', () => {
                 is_sub: 1
             })
         ]));
-    })
+    });
 
     let opened_markets = parsed.getMarkets(1);
     it('get Opened markets list (ordered)', () => {
@@ -122,7 +122,7 @@ describe('SymbolsParser Class tests', () => {
                 is_sub: 1
             })
         ]));
-    })
+    });
 
     let random_symbols = parsed.getSymbols('random');
     it('get Market\'s  symbols list (ordered)', () => {
@@ -156,7 +156,7 @@ describe('SymbolsParser Class tests', () => {
 
         expect(parsed.getSymbols('non existing market')).to.equal(List());
         expect(parsed.getSymbols()).to.equal(List());
-    })
+    });
 
     it('Get first active symbol for market', () => {
         expect(parsed.getFirstActiveSymbol()).to.equal();
@@ -174,7 +174,7 @@ describe('SymbolsParser Class tests', () => {
             "submarket": "random_index"
         }));
 
-    })
+    });
 
     it('Checks adding symbol to  tree', () => {
 
@@ -222,18 +222,28 @@ describe('SymbolsParser Class tests', () => {
                 }
             }
         }));
-    })
+    });
 
     it('Checks if market is opened', () => {
         expect(parsed.isMarketOpened('random')).to.equal(1);
         expect(parsed.isMarketOpened('wrong_market')).to.equal(0);
         expect(parsed.isMarketOpened('forex')).to.equal(0);
-    })
+    });
 
     it('Checks if symbol is active', () => {
         expect(parsed.isSymbolActive('R_50')).to.equal(1);
         expect(parsed.isMarketOpened('WLDGBP')).to.equal(0);
         expect(parsed.isMarketOpened('non existing')).to.equal(0);
-    })
+    });
+
+    it('Gets first active market', () => {
+        expect(parsed.getFirstActiveMarket()).to.equal(Map({
+            market: 'random',
+            name: 'Randoms',
+            state: 1,
+            is_sub: 0
+        }));
+        expect((new SymbolsParser).getFirstActiveMarket()).to.equal();
+    });
 
 })

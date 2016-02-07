@@ -421,6 +421,18 @@
         {
             "file": "lib/parsers/symbols.js",
             "line": 186,
+            "description": "Returns first opened market.",
+            "itemtype": "method",
+            "name": "getFirstActiveMarket",
+            "return": {
+                "description": "Market details",
+                "type": "Map"
+            },
+            "class": "SymbolsParser"
+        },
+        {
+            "file": "lib/parsers/symbols.js",
+            "line": 202,
             "description": "Returns symbols for market.",
             "itemtype": "method",
             "name": "getSymbol",
@@ -439,7 +451,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 197,
+            "line": 213,
             "description": "Returns symbols for market.",
             "itemtype": "method",
             "name": "getSymbols",
@@ -458,7 +470,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 228,
+            "line": 244,
             "description": "Returns first active symbol for market.",
             "itemtype": "method",
             "name": "getFirstActiveSymbol",
@@ -477,7 +489,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 245,
+            "line": 261,
             "description": "Check if symbol exists and is active",
             "itemtype": "method",
             "name": "isSymbolActive",
@@ -496,7 +508,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 256,
+            "line": 272,
             "description": "Returns true if market exists and opened and false if not.",
             "itemtype": "method",
             "name": "isMarketOpened",
