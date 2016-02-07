@@ -5,4 +5,6 @@ let store = configureStore();
 // store.dispatch(setSymbol('lol2'))
 // store.dispatch(action_creators.setSymbol('R_25'))
 store.dispatch(action_creators.setMarket("random"))
-// store.dispatch(action_creators.getSymbols())
+store.dispatch(action_creators.setSymbol("R_50"))
+store.dispatch(action_creators.getContracts("R_50"))
+store.dispatch(action_creators.getContracts("R_100"))

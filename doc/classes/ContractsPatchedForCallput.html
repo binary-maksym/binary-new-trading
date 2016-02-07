@@ -38,9 +38,12 @@
                 
                         <div id="api-tabview-panel">
                             <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/ChainMiddleware.html">ChainMiddleware</a></li>
                                 <li><a href="../classes/ContractsParser.html">ContractsParser</a></li>
                                 <li><a href="../classes/ContractsPatchedForCallput.html">ContractsPatchedForCallput</a></li>
+                                <li><a href="../classes/SaveToStorageMiddleware.html">SaveToStorageMiddleware</a></li>
                                 <li><a href="../classes/Socket.html">Socket</a></li>
+                                <li><a href="../classes/SocketMiddleware.html">SocketMiddleware</a></li>
                                 <li><a href="../classes/SymbolsParser.html">SymbolsParser</a></li>
                             </ul>
                 
@@ -82,6 +85,9 @@
 <h1>ContractsPatchedForCallput Class</h1>
 <div class="box meta">
 
+        <div class="extends">
+            Extends <a href="../classes/ContractsParser.html" class="crosslink">ContractsParser</a>
+        </div>
 
         <div class="foundat">
             Defined in: <a href="../files/lib_parsers_contracts_patched.js.html#l1"><code>lib&#x2F;parsers&#x2F;contracts_patched.js:1</code></a>
@@ -144,9 +150,37 @@
                 <div class="index-section methods">
                     <h3>Methods</h3>
 
-                    <ul class="index-list methods">
-                            <li class="index-item method private">
+                    <ul class="index-list methods extends">
+                            <li class="index-item method private inherited">
                                 <a href="#method__addDataToTree">_addDataToTree</a>
+
+                            </li>
+                            <li class="index-item method private inherited">
+                                <a href="#method__completeDurations">_completeDurations</a>
+
+                            </li>
+                            <li class="index-item method private inherited">
+                                <a href="#method__parse">_parse</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_constructor">constructor</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_getCategories">getCategories</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_getDurations">getDurations</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_getExpiryTypes">getExpiryTypes</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_getStartTypes">getStartTypes</a>
 
                             </li>
                     </ul>
@@ -185,9 +219,12 @@
 
 
     <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/lib_parsers_contracts_patched.js.html#l14"><code>lib&#x2F;parsers&#x2F;contracts_patched.js:14</code></a>
+            <p>Inherited from
+            <a href="../classes/ContractsParser.html#method__addDataToTree">
+                ContractsParser
+            </a>
+            but overwritten in
+        <a href="../files/lib_parsers_contracts_patched.js.html#l15"><code>lib&#x2F;parsers&#x2F;contracts_patched.js:15</code></a>
         </p>
 
 
@@ -232,6 +269,475 @@
             <div class="returns-description">
                         <span class="type">Map()</span>:
                     <p>tree</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method__completeDurations" class="method item private inherited">
+    <h3 class="name"><code>_completeDurations</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>DURATIONS</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Map()</span>
+        </span>
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ContractsParser.html#method__completeDurations">ContractsParser</a>:
+        <a href="../files/lib_parsers_contracts.js.html#l103"><code>lib&#x2F;parsers&#x2F;contracts.js:103</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">DURATIONS</code>
+                        <span class="type">Map()</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Map()</span>:
+                    <p>UPDATED_DURATIONS</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method__parse" class="method item private inherited">
+    <h3 class="name"><code>_parse</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>CONTRACTS</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Map()</span>
+        </span>
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ContractsParser.html#method__parse">ContractsParser</a>:
+        <a href="../files/lib_parsers_contracts.js.html#l38"><code>lib&#x2F;parsers&#x2F;contracts.js:38</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">CONTRACTS</code>
+                        <span class="type">List()</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Map()</span>:
+                    <p>TREE</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_constructor" class="method item inherited">
+    <h3 class="name"><code>constructor</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>CONTRACTS</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ContractsParser.html#method_constructor">ContractsParser</a>:
+        <a href="../files/lib_parsers_contracts.js.html#l20"><code>lib&#x2F;parsers&#x2F;contracts.js:20</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">CONTRACTS</code>
+                        <span class="type">Array</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_getCategories" class="method item inherited">
+    <h3 class="name"><code>getCategories</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">List()</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ContractsParser.html#method_getCategories">ContractsParser</a>:
+        <a href="../files/lib_parsers_contracts.js.html#l136"><code>lib&#x2F;parsers&#x2F;contracts.js:136</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns categories List. List order is taken from /config.json</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">List()</span>:
+                    <p>[
+Map {
+&quot;category&quot;: &quot;callput&quot;,
+&quot;name&quot;: &quot;Up/Down&quot;
+}, ... ,
+Map {
+&quot;category&quot;: &quot;spreads&quot;,
+&quot;name&quot;: &quot;Spreads&quot;
+}
+]</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_getDurations" class="method item inherited">
+    <h3 class="name"><code>getDurations</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>CATEGORY</code>
+                </li>
+                <li class="arg">
+                        <code>START_TYPE,</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">List()</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ContractsParser.html#method_getDurations">ContractsParser</a>:
+        <a href="../files/lib_parsers_contracts.js.html#l162"><code>lib&#x2F;parsers&#x2F;contracts.js:162</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns durations List. List order is taken from /config.json</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">CATEGORY</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">START_TYPE,</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <p>default &quot;spot&quot;</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">List()</span>:
+                    <p>[
+Map {
+&quot;min_duration&quot;: &quot;5t&quot;,
+&quot;max_duration&quot;: &quot;10t&quot;,
+&quot;value&quot;: &quot;t&quot;
+}, ... ,
+Map {
+&quot;min_duration&quot;: &quot;1d&quot;,
+&quot;max_duration&quot;: &quot;365d&quot;,
+&quot;barrier&quot;: &quot;+1462.51&quot;,
+&quot;value&quot;: &quot;d&quot;
+}
+]</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_getExpiryTypes" class="method item inherited">
+    <h3 class="name"><code>getExpiryTypes</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>CATEGORY</code>
+                </li>
+                <li class="arg">
+                        <code>START_TYPE,</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">List()</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ContractsParser.html#method_getExpiryTypes">ContractsParser</a>:
+        <a href="../files/lib_parsers_contracts.js.html#l193"><code>lib&#x2F;parsers&#x2F;contracts.js:193</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns expiryType List.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">CATEGORY</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">START_TYPE,</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <p>default &quot;spot&quot;</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">List()</span>:
+                    <p>[ &quot;duration&quot;, &quot;end_date&quot;]</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_getStartTypes" class="method item inherited">
+    <h3 class="name"><code>getStartTypes</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>CATEGORY</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type">Map()</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/ContractsParser.html#method_getStartTypes">ContractsParser</a>:
+        <a href="../files/lib_parsers_contracts.js.html#l216"><code>lib&#x2F;parsers&#x2F;contracts.js:216</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Returns getStartTypes Map hash.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">CATEGORY</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Map()</span>:
+                    <p>{ &quot;spot&quot;: 1, &quot;forward&quot;: 1 }</p>
 
             </div>
         </div>

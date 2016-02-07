@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>lib/parsers/contracts_patched.js - Websocket trading page UI</title>
+    <title>ChainMiddleware - Websocket trading page UI</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -82,46 +82,77 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: lib/parsers/contracts_patched.js</h1>
+<h1>ChainMiddleware Class</h1>
+<div class="box meta">
 
-<div class="file">
-    <pre class="code prettyprint linenums">
-/**
- * Class patches ContractsParser class to process callput contracts as Rise/Fall and Higher/Lower
- *
- * @class ContractsPatchedForCallput
- * @constructor
- * @extends ContractsParser
- *
- */
 
-import ContractsParser from &#x27;./contracts&#x27;;
-import Text from &#x27;../utils/text&#x27;;
+        <div class="foundat">
+            Defined in: <a href="../files/lib_middleware_chain.js.html#l1"><code>lib&#x2F;middleware&#x2F;chain.js:1</code></a>
+        </div>
 
-export default class ContractsPatchedForCallput extends ContractsParser {
 
-    /**
-     * Patches _addDataToTree to process callput contracts as Rise/Fall and Higher/Lower
-     * @method _addDataToTree
-     * @private
-     * @param {Map()} tree
-     * @param {Map()} contract
-     * @return {Map()} tree
-     */
-    _addDataToTree(tree = Map(), c) {
-        if (c.get(&#x27;contract_category&#x27;) === &#x27;callput&#x27;) {
+</div>
 
-            if (c.get(&#x27;barrier_category&#x27;) === &#x27;euro_non_atm&#x27;) {
-                c = c.set(&#x27;contract_category&#x27;, &#x27;higherlower&#x27;).set(&#x27;contract_category_display&#x27;, Text._(&#x27;Higher/Lower&#x27;));
-            } else {
-                c = c.set(&#x27;contract_category&#x27;, &#x27;risefall&#x27;).set(&#x27;contract_category_display&#x27;, Text._(&#x27;Rise/Fall&#x27;));
-            }
-        }
-        return super._addDataToTree(tree, c);
-    }
-}
 
-    </pre>
+<div class="box intro">
+    <p>Middleware checks for potential actionCreator that should be dispathed after current action and dispatches it if exists.</p>
+<p>Actions types and action creators should have the same style, for example &quot;SET_SYMBOL&quot; for action type and &quot;setSymbol&quot; for action creator.</p>
+
+</div>
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+<div id="method_ChainMiddleware" class="method item">
+    <h3 class="name"><code>ChainMiddleware</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/lib_middleware_chain.js.html#l1"><code>lib&#x2F;middleware&#x2F;chain.js:1</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+
+</div>
+    </div>
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+
+
+
+        </div>
+
+
+
+
+    </div>
 </div>
                     </div>
                 </div>

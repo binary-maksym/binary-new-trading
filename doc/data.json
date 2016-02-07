@@ -6,6 +6,33 @@
         "logo": "../resources/img/logo.png"
     },
     "files": {
+        "lib/middleware/chain.js": {
+            "name": "lib/middleware/chain.js",
+            "modules": {},
+            "classes": {
+                "ChainMiddleware": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/middleware/socket.js": {
+            "name": "lib/middleware/socket.js",
+            "modules": {},
+            "classes": {
+                "SocketMiddleware": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "lib/middleware/storage.js": {
+            "name": "lib/middleware/storage.js",
+            "modules": {},
+            "classes": {
+                "SaveToStorageMiddleware": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "lib/parsers/contracts.js": {
             "name": "lib/parsers/contracts.js",
             "modules": {},
@@ -45,6 +72,48 @@
     },
     "modules": {},
     "classes": {
+        "ChainMiddleware": {
+            "name": "ChainMiddleware",
+            "shortname": "ChainMiddleware",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "lib/middleware/chain.js",
+            "line": 1,
+            "description": "Middleware checks for potential actionCreator that should be dispathed after current action and dispatches it if exists.\n\nActions types and action creators should have the same style, for example \"SET_SYMBOL\" for action type and \"setSymbol\" for action creator.",
+            "is_constructor": 1
+        },
+        "SocketMiddleware": {
+            "name": "SocketMiddleware",
+            "shortname": "SocketMiddleware",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "lib/middleware/socket.js",
+            "line": 1,
+            "description": "Middleware checks for ***[WS_API]*** action's object property. \n\nIf ***[WS_API]*** field exists middleware sends websocket request with data from [WS_API] object.\n\n***[WS_API]*** object should have property \"types\" - the array of 3 ACTION TYPES - for pending request, success and fail.\n\n***[WS_API]*** can have \"stream\" property - then request will be initiated as a stream.",
+            "is_constructor": 1,
+            "example": [
+                "\n       [WS_API]: {\n           types: ['PENDING_SYMBOLS', 'SUCCESS_SYMBOLS', 'FAILURE_SYMBOLS'], // types\n           active_symbols: \"brief\" // ws request parameter\n       }"
+            ]
+        },
+        "SaveToStorageMiddleware": {
+            "name": "SaveToStorageMiddleware",
+            "shortname": "SaveToStorageMiddleware",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "lib/middleware/storage.js",
+            "line": 1,
+            "description": "Middleware checks \"storage\" property in store object and saves values from it to localStorage each time action dispatched",
+            "is_constructor": 1
+        },
         "ContractsParser": {
             "name": "ContractsParser",
             "shortname": "ContractsParser",
@@ -72,7 +141,8 @@
             "file": "lib/parsers/contracts_patched.js",
             "line": 1,
             "description": "Class patches ContractsParser class to process callput contracts as Rise/Fall and Higher/Lower",
-            "is_constructor": 1
+            "is_constructor": 1,
+            "extends": "ContractsParser"
         },
         "SymbolsParser": {
             "name": "SymbolsParser",
@@ -269,7 +339,7 @@
         },
         {
             "file": "lib/parsers/contracts_patched.js",
-            "line": 14,
+            "line": 15,
             "description": "Patches _addDataToTree to process callput contracts as Rise/Fall and Higher/Lower",
             "itemtype": "method",
             "name": "_addDataToTree",

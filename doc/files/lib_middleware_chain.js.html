@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>lib/parsers/contracts_patched.js - Websocket trading page UI</title>
+    <title>lib/middleware/chain.js - Websocket trading page UI</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -82,44 +82,97 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: lib/parsers/contracts_patched.js</h1>
+<h1 class="file-heading">File: lib/middleware/chain.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
- * Class patches ContractsParser class to process callput contracts as Rise/Fall and Higher/Lower
+ * Middleware checks for potential actionCreator that should be dispathed after current action and dispatches it if exists.
  *
- * @class ContractsPatchedForCallput
+ * Actions types and action creators should have the same style, for example &quot;SET_SYMBOL&quot; for action type and &quot;setSymbol&quot; for action creator.
+ *
+ * @class ChainMiddleware
  * @constructor
- * @extends ContractsParser
  *
  */
 
-import ContractsParser from &#x27;./contracts&#x27;;
-import Text from &#x27;../utils/text&#x27;;
 
-export default class ContractsPatchedForCallput extends ContractsParser {
+const ACTIONS_MAP = {
+    setMarket: [
+        &#x27;setSymbol&#x27;
+    ],
+    setSymbol: [
+        &#x27;setStartTime&#x27;,
+        &#x27;setExpiryType&#x27;,
+        &#x27;setStopType&#x27;
+    ],
+    setStartTime: [
+        &#x27;setExpiryType&#x27;
+    ],
+    setExpiryType: [
+        &#x27;setStartDate&#x27;,
+        &#x27;setDurationUnit&#x27;
+    ],
+    setStartDate: [
+        &#x27;setStartTime&#x27;
+    ],
+    setDurationUnit: [
+        &#x27;setDurationAmount&#x27;
+    ],
+    setStartTime: [
+        &#x27;setBarrier&#x27;
+    ],
+    setDurationAmount: [
+        &#x27;setBarrier&#x27;,
+        &#x27;setPrediction&#x27;,
+    ],
+    setPrediction: [
+        &#x27;setPayoutType&#x27;
+    ],
+    setBarrier: [
+        &#x27;setBarrier2&#x27;,
+        &#x27;setPayoutType&#x27;
+    ],
+    setStopType: [
+        &#x27;setStopLoss&#x27;
+    ],
+    setStopLoss: [
+        &#x27;setStopProfit&#x27;
+    ],
+    setPayoutType: [
+        &#x27;setPayoutCurrency&#x27;
+    ],
+    setPayoutCurrency: [
+        &#x27;setPayoutAmmount&#x27;,
+        &#x27;setPayoutAmmountPerPoint&#x27;
+    ]
+};
 
-    /**
-     * Patches _addDataToTree to process callput contracts as Rise/Fall and Higher/Lower
-     * @method _addDataToTree
-     * @private
-     * @param {Map()} tree
-     * @param {Map()} contract
-     * @return {Map()} tree
-     */
-    _addDataToTree(tree = Map(), c) {
-        if (c.get(&#x27;contract_category&#x27;) === &#x27;callput&#x27;) {
+import action_creators from &#x27;../actions/core&#x27;;
 
-            if (c.get(&#x27;barrier_category&#x27;) === &#x27;euro_non_atm&#x27;) {
-                c = c.set(&#x27;contract_category&#x27;, &#x27;higherlower&#x27;).set(&#x27;contract_category_display&#x27;, Text._(&#x27;Higher/Lower&#x27;));
-            } else {
-                c = c.set(&#x27;contract_category&#x27;, &#x27;risefall&#x27;).set(&#x27;contract_category_display&#x27;, Text._(&#x27;Rise/Fall&#x27;));
-            }
-        }
-        return super._addDataToTree(tree, c);
+const transformActionType = (type) =&gt; {
+    let match = type.match(/^([A-Z]+)_([A-Z])([A-Z]+)/);
+    if (match) {
+        return match[1].toLowerCase() + match[2].toUpperCase() + match[3].toLowerCase();
     }
 }
+
+const ChainMiddleware = store =&gt; next =&gt; action =&gt; {
+
+    let result = next(action);
+    // return result;
+    // Executing chain after 1 millisecond to make possible returning correct Promise for parent action
+    setTimeout(() =&gt; {
+        let action_creator = transformActionType(action.type);
+        if (ACTIONS_MAP[action_creator] &amp;&amp; ACTIONS_MAP[action_creator][0] &amp;&amp; action_creators[ACTIONS_MAP[action_creator][0]]) {
+            store.dispatch(action_creators[ACTIONS_MAP[action_creator][0]]());
+        }
+    }, 1);
+
+    return result;
+};
+
+export default ChainMiddleware;
 
     </pre>
 </div>

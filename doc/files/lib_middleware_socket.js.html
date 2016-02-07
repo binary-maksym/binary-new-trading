@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>lib/parsers/contracts_patched.js - Websocket trading page UI</title>
+    <title>lib/middleware/socket.js - Websocket trading page UI</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -82,44 +82,73 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: lib/parsers/contracts_patched.js</h1>
+<h1 class="file-heading">File: lib/middleware/socket.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
- * Class patches ContractsParser class to process callput contracts as Rise/Fall and Higher/Lower
+ * Middleware checks for ***[WS_API]*** action&#x27;s object property. 
  *
- * @class ContractsPatchedForCallput
+ * If ***[WS_API]*** field exists middleware sends websocket request with data from [WS_API] object.
+ *
+ * ***[WS_API]*** object should have property &quot;types&quot; - the array of 3 ACTION TYPES - for pending request, success and fail.
+ *
+ * ***[WS_API]*** can have &quot;stream&quot; property - then request will be initiated as a stream.
+ * 
+ * @class SocketMiddleware
  * @constructor
- * @extends ContractsParser
- *
+ * @example
+ *        [WS_API]: {
+ *            types: [&#x27;PENDING_SYMBOLS&#x27;, &#x27;SUCCESS_SYMBOLS&#x27;, &#x27;FAILURE_SYMBOLS&#x27;], // types
+ *            active_symbols: &quot;brief&quot; // ws request parameter
+ *        }
  */
 
-import ContractsParser from &#x27;./contracts&#x27;;
-import Text from &#x27;../utils/text&#x27;;
+import Socket from &#x27;../utils/socket&#x27;;
 
-export default class ContractsPatchedForCallput extends ContractsParser {
+const socket = new Socket();
+export const WS_API = Symbol(&#x27;WS API&#x27;);
 
-    /**
-     * Patches _addDataToTree to process callput contracts as Rise/Fall and Higher/Lower
-     * @method _addDataToTree
-     * @private
-     * @param {Map()} tree
-     * @param {Map()} contract
-     * @return {Map()} tree
-     */
-    _addDataToTree(tree = Map(), c) {
-        if (c.get(&#x27;contract_category&#x27;) === &#x27;callput&#x27;) {
+const SocketMiddleware = store =&gt; next =&gt; action =&gt; {
+    const api_request = action[WS_API];
 
-            if (c.get(&#x27;barrier_category&#x27;) === &#x27;euro_non_atm&#x27;) {
-                c = c.set(&#x27;contract_category&#x27;, &#x27;higherlower&#x27;).set(&#x27;contract_category_display&#x27;, Text._(&#x27;Higher/Lower&#x27;));
-            } else {
-                c = c.set(&#x27;contract_category&#x27;, &#x27;risefall&#x27;).set(&#x27;contract_category_display&#x27;, Text._(&#x27;Rise/Fall&#x27;));
-            }
+    if (typeof api_request !== &#x27;object&#x27; || typeof api_request.types !== &#x27;object&#x27; || api_request.types.length !== 3) {
+        return Promise.resolve(next(action));
+    } else {
+        const finalAction = (data) =&gt; {
+            let final_action = Object.assign({}, action, data);
+            delete final_action[WS_API];
+            return final_action;
         }
-        return super._addDataToTree(tree, c);
+        const [pendingType, successType, failureType] = api_request.types;
+        const is_stream = api_request.is_stream;
+
+        let final_request = Object.assign({}, api_request);
+        delete final_request.is_stream;
+        delete final_request.types;
+
+        let promise = socket[is_stream ? &#x27;stream&#x27; : &#x27;request&#x27;](final_request).then((result) =&gt; {
+            return next(finalAction({
+                type: successType,
+                data: result
+            }));
+        }).catch((error) =&gt; {
+            return next(finalAction({
+                type: failureType,
+                error: error
+            }));
+        });
+
+        next(finalAction({
+            type: pendingType,
+            promise
+        }));
+
+        return promise;
     }
-}
+};
+
+export default SocketMiddleware;
 
     </pre>
 </div>
