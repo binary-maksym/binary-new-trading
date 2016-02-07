@@ -15,6 +15,15 @@
             "fors": {},
             "namespaces": {}
         },
+        "lib/parsers/contracts_patched.js": {
+            "name": "lib/parsers/contracts_patched.js",
+            "modules": {},
+            "classes": {
+                "ContractsPatchedForCallput": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "lib/parsers/symbols.js": {
             "name": "lib/parsers/symbols.js",
             "modules": {},
@@ -51,6 +60,19 @@
             "example": [
                 "\n     let parsed_data = new ContractsParser(response.contracts_for.available);\n     let categories = parsed_data.getCategories();\n"
             ]
+        },
+        "ContractsPatchedForCallput": {
+            "name": "ContractsPatchedForCallput",
+            "shortname": "ContractsPatchedForCallput",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "lib/parsers/contracts_patched.js",
+            "line": 1,
+            "description": "Class patches ContractsParser class to process callput contracts as Rise/Fall and Higher/Lower",
+            "is_constructor": 1
         },
         "SymbolsParser": {
             "name": "SymbolsParser",
@@ -246,6 +268,32 @@
             "class": "ContractsParser"
         },
         {
+            "file": "lib/parsers/contracts_patched.js",
+            "line": 14,
+            "description": "Patches _addDataToTree to process callput contracts as Rise/Fall and Higher/Lower",
+            "itemtype": "method",
+            "name": "_addDataToTree",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "tree",
+                    "description": "",
+                    "type": "Map()"
+                },
+                {
+                    "name": "contract",
+                    "description": "",
+                    "type": "Map()"
+                }
+            ],
+            "return": {
+                "description": "tree",
+                "type": "Map()"
+            },
+            "class": "ContractsPatchedForCallput"
+        },
+        {
             "file": "lib/parsers/symbols.js",
             "line": 19,
             "itemtype": "method",
@@ -429,7 +477,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 240,
+            "line": 245,
             "description": "Check if symbol exists and is active",
             "itemtype": "method",
             "name": "isSymbolActive",
@@ -448,7 +496,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 251,
+            "line": 256,
             "description": "Returns true if market exists and opened and false if not.",
             "itemtype": "method",
             "name": "isMarketOpened",
@@ -546,7 +594,7 @@
         },
         {
             "file": "lib/utils/socket.js",
-            "line": 222,
+            "line": 233,
             "description": "Processes WS response message",
             "itemtype": "method",
             "name": "_processMessage",
@@ -556,7 +604,7 @@
         },
         {
             "file": "lib/utils/socket.js",
-            "line": 253,
+            "line": 264,
             "description": "Closes connection",
             "itemtype": "method",
             "name": "close",

@@ -13,6 +13,10 @@ describe('SymbolsParser Class tests', () => {
     let parsed = new SymbolsParser(response.active_symbols);
 
     it('Sort symbols', () => {
+
+        expect(parsed._sortSymbolsList(List())).to.equal(List());
+        expect(parsed._sortSymbolsList()).to.equal(List());
+
         let list = [{
             submarket: 'smart_fx',
             display_name: "USD Index"
@@ -151,15 +155,82 @@ describe('SymbolsParser Class tests', () => {
         ]));
 
         expect(parsed.getSymbols('non existing market')).to.equal(List());
+        expect(parsed.getSymbols()).to.equal(List());
     })
 
-    it('Checks if market is opened',()=>{
+    it('Get first active symbol for market', () => {
+        expect(parsed.getFirstActiveSymbol()).to.equal();
+        expect(parsed.getFirstActiveSymbol('random')).to.equal(Map({
+            "symbol_type": "stockindex",
+            "exchange_is_open": 1,
+            "is_trading_suspended": 0,
+            "display_name": "Random 100 Index",
+            "submarket_display_name": "Indices",
+            "market_display_name": "Randoms",
+            "state": 1,
+            "pip": "0.01",
+            "symbol": "R_100",
+            "market": "random",
+            "submarket": "random_index"
+        }));
+
+    })
+
+    it('Checks adding symbol to  tree', () => {
+
+        expect(parsed._addSymbolToTree()).to.equal(Map());
+
+        expect(parsed._addSymbolToTree(undefined, 'wrong symbol')).to.equal(Map());
+        expect(parsed._addSymbolToTree(undefined, Map({
+            "market": "random",
+            "symbol": "R_100",
+            "market_display_name": "Randoms",
+            "symbol_type": "stockindex",
+            "exchange_is_open": 1,
+            "submarket": "random_index",
+            "display_name": "Random 100 Index",
+            "submarket_display_name": "Indices",
+            "is_trading_suspended": 0,
+            "pip": "0.01"
+        }))).to.equal(fromJS({
+            'random': {
+                market: 'random',
+                state: 1,
+                name: "Randoms",
+                is_sub: 0,
+                symbols: {
+                    R_100: {
+                        symbol: 'R_100',
+                        name: "Random 100 Index",
+                        submarket: "random_index",
+                        state: 1
+                    }
+                }
+            },
+            'random_index': {
+                market: 'random_index',
+                state: 1,
+                name: "Indices",
+                is_sub: 1,
+                symbols: {
+                    R_100: {
+                        symbol: 'R_100',
+                        name: "Random 100 Index",
+                        submarket: "random_index",
+                        state: 1
+                    }
+                }
+            }
+        }));
+    })
+
+    it('Checks if market is opened', () => {
         expect(parsed.isMarketOpened('random')).to.equal(1);
         expect(parsed.isMarketOpened('wrong_market')).to.equal(0);
         expect(parsed.isMarketOpened('forex')).to.equal(0);
     })
 
-    it('Checks if symbol is active',()=>{
+    it('Checks if symbol is active', () => {
         expect(parsed.isSymbolActive('R_50')).to.equal(1);
         expect(parsed.isMarketOpened('WLDGBP')).to.equal(0);
         expect(parsed.isMarketOpened('non existing')).to.equal(0);

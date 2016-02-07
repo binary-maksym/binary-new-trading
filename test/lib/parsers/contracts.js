@@ -7,11 +7,13 @@ import {
 }
 from 'immutable';
 import ContractsParser from '../../../lib/parsers/contracts';
+import ContractsParserPatched from '../../../lib/parsers/contracts_patched';
 import response from '../../receive/contracts_for_symbol'
+import util from 'util';
 
 describe('ContractsParser Class tests', () => {
 
-    let parsed = new ContractsParser(response.contracts_for.available);
+    const parsed = new ContractsParser(response.contracts_for.available);
 
     it('Adding data to tree', () => {
         let tree = Map();
@@ -128,4 +130,70 @@ describe('ContractsParser Class tests', () => {
             spot: 1
         }));
     });
+
+    it('Checking adding patched callput contracts to the tree', () => {
+        const parsed = new ContractsParserPatched(response.contracts_for.available);
+        let tree = Map();
+        let next_tree = parsed._addDataToTree(tree, Map({
+            "contract_display": "higher",
+            "market": "random",
+            "min_contract_duration": "1d",
+            "max_contract_duration": "365d",
+            "sentiment": "up",
+            "barriers": 0,
+            "contract_category": "callput",
+            "start_type": "spot",
+            "barrier_category": "euro_atm",
+            "exchange_name": "RANDOM",
+            "submarket": "random_index",
+            "expiry_type": "daily",
+            "underlying_symbol": "R_100",
+            "contract_category_display": "Up/Down",
+            "contract_type": "CALL"
+        }));
+        next_tree = parsed._addDataToTree(next_tree, Map({
+            "contract_display": "higher",
+            "market": "random",
+            "max_contract_duration": "365d",
+            "barrier": "+1462.51",
+            "barrier_category": "euro_non_atm",
+            "exchange_name": "RANDOM",
+            "submarket": "random_index",
+            "contract_category_display": "Up/Down",
+            "contract_type": "CALL",
+            "min_contract_duration": "1d",
+            "sentiment": "up",
+            "barriers": 1,
+            "contract_category": "callput",
+            "start_type": "spot",
+            "expiry_type": "daily",
+            "underlying_symbol": "R_100"
+        }));
+
+        expect(next_tree).to.equal(Map({
+            "risefall": Map({
+                "name": "Rise/Fall",
+                "start_types": Map({
+                    "spot": Map({
+                        "d": Map({
+                            "min_duration": "1d",
+                            "max_duration": "365d"
+                        })
+                    })
+                })
+            }),
+            "higherlower": Map({
+                "name": "Higher/Lower",
+                "start_types": Map({
+                    "spot": Map({
+                        "d": Map({
+                            "min_duration": "1d",
+                            "max_duration": "365d",
+                            "barrier": "+1462.51"
+                        })
+                    })
+                })
+            })
+        }));
+    })
 });
