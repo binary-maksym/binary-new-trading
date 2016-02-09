@@ -109,7 +109,7 @@ export default class SymbolsParser {
      * @param {Array} SYMBOLS
      */
     constructor(symbols) {
-        const [tree, symbols_obj] = this._parse(symbols);
+        const [tree, symbols_obj, error] = this._parse(symbols);
         Object.defineProperties(this, {
             _symbols: {
                 get: () =&gt; symbols,
@@ -124,6 +124,12 @@ export default class SymbolsParser {
                 set: () =&gt; {}
             }
         });
+        if (error) {
+            Object.defineProperty(this, &#x27;error&#x27;, {
+                get: () =&gt; error,
+                set: () =&gt; {}
+            })
+        }
     }
 
     /**
@@ -136,13 +142,18 @@ export default class SymbolsParser {
         const symbols = fromJS(s);
         let markets = Map();
         let symbols_obj = Map();
+        let error = &#x27;&#x27;;
         if (List.isList(symbols)) {
             symbols.forEach((s) =&gt; {
                 markets = this._addSymbolToTree(markets, s);
                 symbols_obj = this._addSymbolToList(symbols_obj, s);
             });
         }
-        return [markets, symbols_obj];
+        let result = [markets, symbols_obj];
+        if (markets.isEmpty()) {
+            result.push(&#x27;Error parsing&#x27;);
+        }
+        return result;
     }
 
     /**
@@ -277,12 +288,11 @@ export default class SymbolsParser {
      * @method getFirstActiveMarket
      * @return {Map} Market details    
      */
-    getFirstActiveMarket(){
+    getFirstActiveMarket() {
         const opened_markets = this.getMarkets(1);
-        if(!opened_markets.isEmpty()){
+        if (!opened_markets.isEmpty()) {
             return opened_markets.get(0);
-        }
-        else{
+        } else {
             return;
         }
     }
@@ -338,10 +348,9 @@ export default class SymbolsParser {
      */
     getFirstActiveSymbol(market) {
         let symbols = this.getSymbols(market).filter((symbol) =&gt; symbol.get(&#x27;state&#x27;));
-        if(symbols.first()){
+        if (symbols.first()) {
             return this.symbols.get(symbols.first().get(&#x27;symbol&#x27;));
-        }
-        else {
+        } else {
             return;
         }
     }

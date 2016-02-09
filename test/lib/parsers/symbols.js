@@ -7,7 +7,7 @@ import {
 }
 from 'immutable';
 import SymbolsParser from '../../../lib/parsers/symbols';
-import response from '../../receive/active_symbols'
+import response from '../../receive/active_symbols';
 
 describe('SymbolsParser Class tests', () => {
     let parsed = new SymbolsParser(response.active_symbols);

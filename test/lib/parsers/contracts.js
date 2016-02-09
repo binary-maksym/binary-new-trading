@@ -9,7 +9,6 @@ from 'immutable';
 import ContractsParser from '../../../lib/parsers/contracts';
 import ContractsParserPatched from '../../../lib/parsers/contracts_patched';
 import response from '../../receive/contracts_for_symbol'
-import util from 'util';
 
 describe('ContractsParser Class tests', () => {
 

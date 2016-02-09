@@ -379,7 +379,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 41,
+            "line": 47,
             "itemtype": "method",
             "name": "_parse",
             "access": "private",
@@ -399,7 +399,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 60,
+            "line": 71,
             "itemtype": "method",
             "name": "_sortSymbolsList",
             "access": "private",
@@ -419,7 +419,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 85,
+            "line": 96,
             "description": "Adds symbol to market/submarket tree.",
             "itemtype": "method",
             "name": "_addSymbolToTree",
@@ -445,7 +445,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 125,
+            "line": 136,
             "description": "Adds symbol symbols Map()",
             "itemtype": "method",
             "name": "_addSymbolToList",
@@ -471,7 +471,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 143,
+            "line": 154,
             "description": "Returns ordered markets. Markets order is taken from /config.json",
             "itemtype": "method",
             "name": "getMarkets",
@@ -490,7 +490,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 186,
+            "line": 197,
             "description": "Returns first opened market.",
             "itemtype": "method",
             "name": "getFirstActiveMarket",
@@ -502,7 +502,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 202,
+            "line": 212,
             "description": "Returns symbols for market.",
             "itemtype": "method",
             "name": "getSymbol",
@@ -521,7 +521,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 213,
+            "line": 223,
             "description": "Returns symbols for market.",
             "itemtype": "method",
             "name": "getSymbols",
@@ -540,7 +540,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 244,
+            "line": 254,
             "description": "Returns first active symbol for market.",
             "itemtype": "method",
             "name": "getFirstActiveSymbol",
@@ -559,7 +559,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 261,
+            "line": 270,
             "description": "Check if symbol exists and is active",
             "itemtype": "method",
             "name": "isSymbolActive",
@@ -578,7 +578,7 @@
         },
         {
             "file": "lib/parsers/symbols.js",
-            "line": 272,
+            "line": 281,
             "description": "Returns true if market exists and opened and false if not.",
             "itemtype": "method",
             "name": "isMarketOpened",

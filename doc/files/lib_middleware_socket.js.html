@@ -113,7 +113,7 @@ const SocketMiddleware = store =&gt; next =&gt; action =&gt; {
     const api_request = action[WS_API];
 
     if (typeof api_request !== &#x27;object&#x27; || typeof api_request.types !== &#x27;object&#x27; || api_request.types.length !== 3) {
-        return Promise.resolve(next(action));
+        return next(action);
     } else {
         const finalAction = (data) =&gt; {
             let final_action = Object.assign({}, action, data);

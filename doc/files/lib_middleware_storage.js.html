@@ -97,7 +97,7 @@
 const SaveToStorageMiddleware = store =&gt; next =&gt; action =&gt; {
 
     let result = next(action);
-    let storage = store.getState().trading_form.get(&#x27;storage&#x27;);
+    let storage = store.getState().getIn([&#x27;trading_form&#x27;, &#x27;storage&#x27;]);
     if (storage) {
         storage.forEach((v, k) =&gt; {
             localStorage.setItem(k, v);
