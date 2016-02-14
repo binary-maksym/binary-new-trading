@@ -1,0 +1,22 @@
+Perltidy version is 20150815
+
+96: sub save {
+             ^
+108: my $tentative_events = BOM::System::Chronicle::get(EE, EET;
+                                                       ^
+131: }
+     ^
+Found 1 extra '(' between '{' on line 96 and '}' on line 131
+    The most recent un-matched '(' is on line 108
+244:	final indentation level: 2
+
+Final nesting depth of '{'s is 1
+The most recent un-matched '{' is on line 133
+133: sub update{
+               ^
+
+Final nesting depth of '('s is 1
+The most recent un-matched '(' is on line 108
+108: my $tentative_events = BOM::System::Chronicle::get(EE, EET;
+                                                       ^
+244:	To save a full .LOG file rerun with -g

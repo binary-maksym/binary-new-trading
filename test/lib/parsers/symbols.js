@@ -159,8 +159,8 @@ describe('SymbolsParser Class tests', () => {
     });
 
     it('Get first active symbol for market', () => {
-        expect(parsed.getFirstActiveSymbol()).to.equal();
-        expect(parsed.getFirstActiveSymbol('random')).to.equal(Map({
+        expect(parsed.getFirstOpenedSymbol()).to.equal();
+        expect(parsed.getFirstOpenedSymbol('random')).to.equal(Map({
             "symbol_type": "stockindex",
             "exchange_is_open": 1,
             "is_trading_suspended": 0,
@@ -231,19 +231,19 @@ describe('SymbolsParser Class tests', () => {
     });
 
     it('Checks if symbol is active', () => {
-        expect(parsed.isSymbolActive('R_50')).to.equal(1);
+        expect(parsed.isSymbolOpened('R_50')).to.equal(1);
         expect(parsed.isMarketOpened('WLDGBP')).to.equal(0);
         expect(parsed.isMarketOpened('non existing')).to.equal(0);
     });
 
     it('Gets first active market', () => {
-        expect(parsed.getFirstActiveMarket()).to.equal(Map({
+        expect(parsed.getFirstOpenedMarket()).to.equal(Map({
             market: 'random',
             name: 'Randoms',
             state: 1,
             is_sub: 0
         }));
-        expect((new SymbolsParser).getFirstActiveMarket()).to.equal();
+        expect((new SymbolsParser).getFirstOpenedMarket()).to.equal();
     });
 
 })
