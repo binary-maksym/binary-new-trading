@@ -9,7 +9,7 @@ import {
 from 'immutable';
 import active_symbols from '../../receive/active_symbols';
 import Parser from '../../../lib/parsers/symbols';
-import Err from '../../../lib/utils/errors';
+import Err from '../../../lib/helpers/errors';
 
 describe('TradingFormReducers tests', () => {
 
@@ -77,7 +77,7 @@ describe('TradingFormReducers tests', () => {
             symbols: {
                 status: 'error',
             },
-            error: Err('ERROR_SYMBOLS_PARSING')
+            error: Err._('ERROR_SYMBOLS_PARSING')
         }));
         let action2 = {
             type: 'SUCCESS_SYMBOLS',
@@ -87,7 +87,7 @@ describe('TradingFormReducers tests', () => {
             symbols: {
                 status: 'error',
             },
-            error: Err('ERROR_SYMBOLS_PARSING')
+            error: Err._('ERROR_SYMBOLS_PARSING')
         }));
 
         let action3 = {
@@ -109,7 +109,7 @@ describe('TradingFormReducers tests', () => {
         }
         let next_state1 = Reducer(state1, action1);
         expect(next_state1).to.equal(fromJS({
-            error: Err('ERROR_SYMBOLS_NOT_LOADED')
+            error: Err._('ERROR_SYMBOLS_NOT_LOADED')
         }));
 
         let parsed = new Parser(active_symbols.active_symbols);
@@ -150,7 +150,7 @@ describe('TradingFormReducers tests', () => {
         let next_state4 = Reducer(next_state3, action4);
         expect(next_state4.get('market')).to.equal('random');
         expect(next_state4.getIn(['storage', 'market'])).to.equal('random');
-        expect(next_state4.get('error')).to.equal(Err('ERROR_MARKET_CLOSED'));
+        expect(next_state4.get('error')).to.equal(Err._('ERROR_MARKET_CLOSED'));
 
         let state5 = Map(fromJS({
             symbols: {
@@ -188,7 +188,7 @@ describe('TradingFormReducers tests', () => {
             type: 'SET_MARKET'
         };
         let next_state6 = Reducer(state6, action6);
-        expect(next_state6.get('error')).to.equal(Err('ERROR_ALL_MARKETS_CLOSED'));
+        expect(next_state6.get('error')).to.equal(Err._('ERROR_ALL_MARKETS_CLOSED'));
 
         let state7 = Map(fromJS({
             symbols: {
@@ -199,7 +199,7 @@ describe('TradingFormReducers tests', () => {
             type: 'SET_MARKET'
         };
         let next_state7 = Reducer(state7, action7);
-        expect(next_state7.get('error')).to.equal(Err('ERROR_SYMBOLS_NOT_LOADED'));
+        expect(next_state7.get('error')).to.equal(Err._('ERROR_SYMBOLS_NOT_LOADED'));
 
     });
 

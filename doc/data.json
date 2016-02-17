@@ -60,8 +60,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "lib/utils/socket.js": {
-            "name": "lib/utils/socket.js",
+        "lib/helpers/socket.js": {
+            "name": "lib/helpers/socket.js",
             "modules": {},
             "classes": {
                 "Socket": 1
@@ -168,7 +168,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "lib/utils/socket.js",
+            "file": "lib/helpers/socket.js",
             "line": 1,
             "description": "Class for providing permanent websocket connection",
             "is_constructor": 1,
@@ -596,7 +596,7 @@
             "class": "SymbolsParser"
         },
         {
-            "file": "lib/utils/socket.js",
+            "file": "lib/helpers/socket.js",
             "line": 45,
             "itemtype": "method",
             "name": "constructor",
@@ -610,7 +610,7 @@
             "class": "Socket"
         },
         {
-            "file": "lib/utils/socket.js",
+            "file": "lib/helpers/socket.js",
             "line": 61,
             "description": "Create WS connection and provides connection Promise",
             "itemtype": "method",
@@ -620,7 +620,7 @@
             "class": "Socket"
         },
         {
-            "file": "lib/utils/socket.js",
+            "file": "lib/helpers/socket.js",
             "line": 97,
             "itemtype": "method",
             "name": "_reconnect",
@@ -629,7 +629,7 @@
             "class": "Socket"
         },
         {
-            "file": "lib/utils/socket.js",
+            "file": "lib/helpers/socket.js",
             "line": 112,
             "description": "Returns connection promise",
             "itemtype": "method",
@@ -639,7 +639,7 @@
             "class": "Socket"
         },
         {
-            "file": "lib/utils/socket.js",
+            "file": "lib/helpers/socket.js",
             "line": 121,
             "description": "Makes ws request and retruns answer in then() method and error in catch() method",
             "itemtype": "method",
@@ -657,7 +657,7 @@
             "class": "Socket"
         },
         {
-            "file": "lib/utils/socket.js",
+            "file": "lib/helpers/socket.js",
             "line": 156,
             "description": "Makes ws request for stream and retruns answer in then() method and error in catch() method",
             "itemtype": "method",
@@ -675,7 +675,7 @@
             "class": "Socket"
         },
         {
-            "file": "lib/utils/socket.js",
+            "file": "lib/helpers/socket.js",
             "line": 235,
             "description": "Processes WS response message",
             "itemtype": "method",
@@ -685,7 +685,7 @@
             "class": "Socket"
         },
         {
-            "file": "lib/utils/socket.js",
+            "file": "lib/helpers/socket.js",
             "line": 266,
             "description": "Closes connection",
             "itemtype": "method",

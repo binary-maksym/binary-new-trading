@@ -1,0 +1,16 @@
+ {
+
+     "ERROR_SYMBOLS_PARSING": "Error while parsing active symbols response",
+     "ERROR_MARKET_CLOSED": "This market is closed",
+     "ERROR_ALL_MARKETS_CLOSED": "At current moment all the markets are closed",
+     "ERROR_SYMBOLS_NOT_LOADED": "Active symbols request has no response yet",
+     "ERROR_MARKET_NOT_SELECTED": "Market should be selected before symbol",
+     "ERROR_SYMBOL_IS_CLOSED": "Trading on Symbol is closed",
+     "ERROR_WRONG_SYMBOL_MARKET": "Symbol is from another market",
+     "ERROR_WRONG_CONTRACT_SYMBOL_ASKED": "Contracts_for request should be for current selected symbol",
+     "ERROR_CONTRACTS_FOR_REQUEST_SHOULD_BE_BEFORE": "contracts_for request should come before processing resopnse",
+     "ERROR_WRONG_SYMBOL_PASSED": "Response symbol should be the same as ask one for contracts_for request",
+     "ERROR_CONTRACTS_NOT_LOADED": "Contracts_for request should be done first",
+     "ERROR_NOT_SELECTED": "Symbol should be selected first",
+     "ERROR_CONTRACTS_PARSING": "Error parsing contracts"
+ }

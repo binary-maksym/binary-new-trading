@@ -2,9 +2,9 @@
   "name": "trading",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "scripts": {
-    "start": "babel-node index.js",
+    "start": "babel-node ./lib/index.js",
     "test": "mocha --require=env-test --compilers js:babel-core/register --require ./test/test_helper.js 'test/**/*.@(js|jsx)'",
     "test:watch": "npm run test -- --watch"
   },
