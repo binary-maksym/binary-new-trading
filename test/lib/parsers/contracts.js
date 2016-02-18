@@ -13,7 +13,6 @@ import response from '../../receive/contracts_for_symbol'
 describe('ContractsParser Class tests', () => {
 
     const parsed = new ContractsParser(response.contracts_for.available);
-
     it('Adding data to tree', () => {
         let tree = Map();
         let next_tree = parsed._addDataToTree(tree, Map({
@@ -237,5 +236,15 @@ describe('ContractsParser Class tests', () => {
             spot: 1,
             forward: 1
         }));
+    });
+
+    it('Has category', () => {
+        expect(parsed.hasCategory('wrong')).to.equal(0);
+        expect(parsed.hasCategory('digits')).to.equal(1);
+    });
+
+    it('Has start type', () => {
+        expect(parsed.hasStartType('wrong')).to.equal(0);
+        expect(parsed.hasStartType('digits','spot')).to.equal(1);
     });
 });
