@@ -3,7 +3,9 @@ import {
 }
 from 'chai';
 import {
-    List, Map, fromJS
+    List,
+    Map,
+    fromJS
 }
 from 'immutable';
 import ContractsParser from '../../../lib/parsers/contracts';
@@ -245,6 +247,25 @@ describe('ContractsParser Class tests', () => {
 
     it('Has start type', () => {
         expect(parsed.hasStartType('wrong')).to.equal(0);
-        expect(parsed.hasStartType('digits','spot')).to.equal(1);
+        expect(parsed.hasStartType('digits', 'spot')).to.equal(1);
+    });
+
+    it('Has duration', () => {
+        expect(parsed.hasDuration('wrong')).to.equal(0);
+        expect(parsed.hasDuration('digits', 'spot')).to.equal(0);
+        expect(parsed.hasDuration('digits', 'spot', 't')).to.equal(1);
+        expect(parsed.hasDuration('digits', undefined, 't')).to.equal(1);
+    });
+
+
+    it('Has digits', () => {
+        expect(parsed.hasDigits('wrong')).to.equal(0);
+        expect(parsed.hasDigits('endsinout')).to.equal(0);
+        expect(parsed.hasDigits('digits')).to.equal(1);
+    });
+
+    it('Get barriers', () => {
+        expect(parsed.getBarriers('wrong')).to.equal(List());
+        expect(parsed.getBarriers('endsinout','spot','d')).to.equal(List.of(-1315.05, "+1462.51"));
     });
 });
