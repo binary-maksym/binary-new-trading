@@ -45,6 +45,7 @@
     "immutable": "^3.7.6",
     "install": "^0.4.1",
     "json-loader": "^0.5.4",
+    "moment": "^2.11.2",
     "npm": "^3.6.0",
     "object-assign": "^4.0.1",
     "react": "^0.14.7",
